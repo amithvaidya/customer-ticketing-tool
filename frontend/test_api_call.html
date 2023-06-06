@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            
+            let request = new XMLHttpRequest();
+            
+            function hello(){
+                request.open("GET", "https://jsonplaceholder.typicode.com/users");
+                request.send();
+                request.onload = () => {
+                    console.log(request);
+                    if(request.status === 200){
+                        tempObj = JSON.parse(request.response);
+                        console.log(tempObj);
+                        displayData(tempObj);
+                    } else {
+                        console.log("Error occurred while making the API call");
+                    }
+                }
+            }
+
+            function displayData(tempObj){
+                let str = '';
+                for(let i=0; i<tempObj.length; i++){
+                    str += tempObj[i].name + ",";
+                }
+
+                document.getElementById('displaySection').innerText = str;
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="hello()">Fetch API data</button>
+        <div id="displaySection"></div>
+    </body>
+</html>

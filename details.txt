@@ -1,0 +1,73 @@
+
+
+Customer Relationship Manaement Tool
+
+
+Tech Stack:
+    -HTML, CSS, Javascript (Single Page Application)
+    -Spring Boot (Microservices)
+
+--------------
+30/05/2023
+--------------
+-This is used for customers to raise tickets which will be resolved by Agents.
+-Admin can monitor the tickets and the performance.
+-There are 3 dashboard, Customer, Admin and Agent
+-Customer can raise tickets and monitor their status
+-Admin can monitor the all tickets of customers, Agents
+-Admin can create accounts for Agents and customers
+-Customer has 2 options of creating a ticket, and viewing a ticket
+-While creating a ticket, customer can add the title, priority, description.
+-There will be a table/list that displays all the tickets raised by the customer
+-Agents will get the ticket automatically based on logic set by Admin
+-Agents can view tickets assigned to other agents
+-Admin can manually allocate ticket to agents
+
+
+
+
+
+
+Admin dashboard has 3 sections: Agents, Customers and Tickets.
+
+Agents section:
+-It has details of agent's performance and details.
+Performance parameters are:
+Table:
+    -Customer Name
+    -Average Customer Rating. = sum of ratings of tickets handled by the agent / total number of tickets handled.
+    -No. of tickets assigned for the day
+    -Average Response Time for the day.
+    T[0] = time of ticket creation.
+    T[1] = first response.
+    T[2] = next response.
+
+    T'[0] = T[1] - T[0]
+    T'[1] = T[2] - T[1]
+    Average response time for ticket X1 = T'[0] + T'[1] / 2
+
+    ART = X1 + X2 + X3... +Xn/ n
+
+    -Average Resolution Time for the day.
+
+-Average Resolution time of the company
+-Average Response time of the company
+
+Graph1: No. of tickets per day vs. days
+Graph2: Avg. response time of company vs days
+Graph3: Avg. Resolution time of company vs. days
+
+
+Tickets Section:
+
+-Search bar
+-List of tickets
+-Search by Agent, Ticket, Status, Client
+
+
+Customers Section:
+
+-Search bar
+-List of customers
+-Search by name, priority
+
