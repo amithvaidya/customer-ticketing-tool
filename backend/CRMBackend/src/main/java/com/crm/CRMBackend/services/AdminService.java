@@ -14,11 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.crm.CRMBackend.dao.AgentMapper;
 import com.crm.CRMBackend.dao.TicketMapper;
 import com.crm.CRMBackend.models.Agent;
-import com.crm.CRMBackend.models.Comment;
+import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 
 @Service
@@ -26,37 +27,104 @@ public class AdminService {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	
-	
-	
-//	List<Map<String, Object>> agents = jdbcTemplate.queryForList(
-//			"SELECT id, name, rating FROM AGENTS"
-//			"select * from "
-//			+ "(select "
-//			+ "	agent_id,"
-//			+ "	t1.ticket_id as ticket_id,"
-//			+ "	ticket_created_time,"
-//			+ "	created_time as response_created_time"
-//			+ "    from "
-//			+ "	(select agents.id as agent_id, "
-//			+ "			tickets.id as ticket_id,"
-//			+ "            tickets.created_time as ticket_created_time"
-//			+ "	from agents left outer join tickets on agents.id = tickets.agent_id) as t1"
-//			+ " left join "
-//			+ "	responses "
-//			+ "on t1.ticket_id = responses.ticket_id) as t2"
-//	);
-	
+		
 	public List<Map<String, Object>> getAgents(){
 		List<Map<String, Object>> agents = jdbcTemplate.queryForList("select id as agentId, name as agentName from agents");
 		for(int i=0; i<agents.size(); i++) {
 			System.out.println("Agent: "+agents.get(i).get("agentId").toString());
-			agents.get(i).put("no_of_tickets", getNumOfTickets(agents.get(i).get("agentId").toString()));
-			agents.get(i).put("avgResponseTime", getAvgResponseTime(agents.get(i).get("agentId").toString()));
-//			agents.get(i).put("avgResolutionTime", getAvgResolutionTime());
+			agents.get(i).put("numOfTickets", getNumOfTickets(agents.get(i).get("agentId").toString()));
+			agents.get(i).put("avgResponseTime", timeParser(getAvgResponseTime(agents.get(i).get("agentId").toString())));
+			agents.get(i).put("avgResolutionTime",timeParser( getAvgResolutionTime(agents.get(i).get("agentId").toString())));
+			agents.get(i).put("avgCustomerRating", avgCustomerRating(agents.get(i).get("agentId").toString()));
 		}		
 		return agents;
+	}
+	
+	
+	
+	public List<Map<String, Object>> getTickets(){
+		String query = "select * from tickets";
+		return jdbcTemplate.queryForList(query);
+	}
+	
+	
+	public String timeParser(Long time) {
+		Long days, hours, mins, sec;
+		String ret = "";
+		if(time > 86400) {
+			days = time / 86400;
+			time %= 86400;
+			ret+= days+"d, ";
+		}
+		if(time > 3600) {
+			hours = time/3600;
+			time %= 3600;
+			ret += hours+"h, ";
+		}
+		if(time > 60) {
+			mins = time / 60;
+			time %= 60;
+			ret += mins +"m, ";
+		}
+		ret += time+"s";
+		return ret;
+	}
+	
+	
+	public Float avgCustomerRating(String agentId) {
+		float rating = 0.0f;
+		String query1 = "select customer_rating from tickets where agent_id = "+agentId;
+		List<Map<String, Object>> result1 = jdbcTemplate.queryForList(query1);
+		for(int i=0; i<result1.size(); i++) {
+			rating+= Float.parseFloat(result1.get(i).get("customer_rating").toString());
+		}
+		return (result1.size() > 0)?(rating / result1.size()):-1f;
+	}
+	
+	public Long getAvgResolutionTime(String agentId) {
+		Long avgResolutionTime = 0L;
+		String query1 = "select id as ticket_id from tickets where agent_id = "+agentId;
+		List<Map<String, Object>> ticketList = jdbcTemplate.queryForList(query1);
+		for(int i=0; i<ticketList.size(); i++) {
+			Long ticketResolutionTime = getAvgResolutionTimeForTicket(ticketList.get(i).get("ticket_id").toString());
+			if (ticketResolutionTime > -1)avgResolutionTime += ticketResolutionTime;
+		}
+		if(ticketList.size() > 0) {
+			String query2 = "select count(*) as resolved_tickets_count from responses where ticket_status = 'resolved' and ticket_id in (";
+			for(int i=0; i<ticketList.size(); i++) {
+				if(i != ticketList.size()-1)	query2 += "'"+ticketList.get(i).get("ticket_id")+"',";
+				else query2 += "'"+ticketList.get(i).get("ticket_id").toString()+"')";
+			}
+			System.out.println(query2);
+			List<Map<String, Object>> resolutionCount = jdbcTemplate.queryForList(query2);
+			if(resolutionCount.get(0).get("resolved_tickets_count")!= null) {
+				if(Integer.parseInt(resolutionCount.get(0).get("resolved_tickets_count").toString()) != 0) {
+					avgResolutionTime /= Integer.parseInt(resolutionCount.get(0).get("resolved_tickets_count").toString());
+				}
+			}
+		}
+		return avgResolutionTime;
+	}
+	
+	
+	public Long getAvgResolutionTimeForTicket(String ticketId) {
+		String query1 = "select created_time as ticket_resolved_time from responses where ticket_id = "+ticketId+" and ticket_status = 'resolved' ";
+		List<Map<String, Object>> queryResult1 = jdbcTemplate.queryForList(query1);
+		
+		String query2 = "select created_time as ticket_created_time from tickets where id = "+ticketId;
+		List<Map<String, Object>> queryResult2 = jdbcTemplate.queryForList(query2);
+		
+
+		if(queryResult1.size()>0 && queryResult2.size()>0) {
+			String createdTime = queryResult2.get(0).get("ticket_created_time").toString();
+			String resolvedTime = queryResult1.get(0).get("ticket_resolved_time").toString();
+			return Duration.between(LocalDateTime.parse(createdTime), LocalDateTime.parse(resolvedTime)).toSeconds();
+		}
+		else {
+			return -1L;
+		}
+		
+		
 	}
 	
 	public Integer getNumOfTickets(String agentId) {
@@ -89,18 +157,14 @@ public class AdminService {
 			
 		}
 		
-		avgRespTime /= (ticketList.size());
+		if(ticketList.size() > 0) avgRespTime /= (ticketList.size());
+		else avgRespTime = -1;
 		return avgRespTime;
 	}
 	
 	public long getAvgResponseTimeForTicket(String ticketId) {
-		
 		long avgResponseTime = 0;
-		
-		//Obtain the response created time
 		List<Map<String, Object>> query = jdbcTemplate.queryForList("select created_time as response_created_time from responses where ticket_id = "+ticketId+" and response_by_agent = 1");
-		
-		
 		for(int i=0; i<query.size()-1; i++) {
 			String t1 = query.get(i).get("response_created_time").toString();
 			String t2 = query.get(i+1).get("response_created_time").toString();
@@ -115,14 +179,10 @@ public class AdminService {
 			
 			System.out.println(avgResponseTime);
 		}
-		
 		if(query.size() > 0) {
-			
 			List<Map<String, Object>> query1 = jdbcTemplate.queryForList("select created_time from tickets where id = "+ticketId);
 			String ticketCreatedTime = query1.get(0).get("created_time").toString();
 			String firstResponseTime = query.get(0).get("response_created_time").toString();
-			
-			
 			avgResponseTime +=  Duration.between(
 							LocalDateTime.parse(ticketCreatedTime),
 							LocalDateTime.parse(firstResponseTime)
@@ -137,37 +197,17 @@ public class AdminService {
 	
 	
 	
-	public List<Ticket> getTickets(String ticketId, String agentId, String title){
-		String query = "select * from tickets";
-//		if(ticketId!=null || agentId!=null || title!=null) query+=" where ";
-//		
-//		List<String> paramNameList = List.of("ticektId", "agentId", "title");
-//		List<String> paramValueList = List.of(ticketId, agentId, title);
-//		int paramCount=0;
-//		for(int i=0; i<paramValueList.size(); i++) {
-//			if(paramCount == 0 && paramValueList.get(i)!=null) {
-//				query+=paramNameList.get(i)+"="+paramValueList.get(i);
-//				paramCount++;
-//			}
-//			else if(paramCount>0 && paramValueList.get(i)!=null) {
-//				query+=" and "+paramNameList.get(i)+"="+paramValueList.get(i);
-//				paramCount++;
-//			}
-//			else {
-//				//Do nothing
-//			}
-//		}
-		List<Ticket> tickets = jdbcTemplate.query(query, new TicketMapper());
-		return tickets;
-	}
-	
 	public String createAgent(Agent agent) {
-//		jdbcTemplate.execute("insert into agents(name, password, rating) values ('"+agent.getName()+"', "+"'password'"+", 0.0)");
+		jdbcTemplate.execute("insert into agents(name, password, rating) values ('"+agent.getAgentName()+"', "+"'password'"+", 0.0)");
 		return "Successfully added agent.";
 	}
 	
-	public void addComment(Comment comment) {
+	public void addResponse(Response comment) {
 		jdbcTemplate.execute("insert into responses(message, created_time, ticket_id) values "
 				+ "('"+comment.getMessage()+"', '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"', "+comment.getTicketId()+")");
+	}
+	
+	public void editResponse() {
+		
 	}
 }

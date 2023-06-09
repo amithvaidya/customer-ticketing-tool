@@ -1,6 +1,6 @@
 package com.crm.CRMBackend.models;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -10,18 +10,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Customer {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Response {
 	
 	private int id;
-	private String name;
-	private String password;
-	private List<Ticket> tickets;
-	private String company;
-	private String emailId;
-	private String phone; 
+	private String message;
+	private LocalDateTime createdTime;
+	private int ticketId;
 	
 }

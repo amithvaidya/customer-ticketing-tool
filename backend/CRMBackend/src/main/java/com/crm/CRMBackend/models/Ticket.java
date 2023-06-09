@@ -24,4 +24,6 @@ public class Ticket {
 	private String status;
 	private LocalDateTime createdTime;
 	private int agentId;
+	private int customerId;
+	private int priority;
 }
