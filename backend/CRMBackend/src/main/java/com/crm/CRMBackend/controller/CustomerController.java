@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 import com.crm.CRMBackend.services.CustomerService;
 
@@ -49,5 +50,10 @@ public class CustomerController {
 		return new ResponseEntity<>(Map.of("message", "Ticket rating is updated successfully."), HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/responses")
+	public ResponseEntity<List<Response>> responses(
+				@RequestParam Integer ticketId
+			){
+		return new ResponseEntity<>(customerService.getResponses(ticketId), HttpStatus.OK);
+	}
 }

@@ -58,4 +58,10 @@ public class AdminController {
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
+	@GetMapping("/responses")
+	public ResponseEntity<List<Response>> responses(
+				@RequestParam Integer ticketId
+			){
+		return new ResponseEntity<>(service.getResponses(ticketId), HttpStatus.OK);
+	}
 }

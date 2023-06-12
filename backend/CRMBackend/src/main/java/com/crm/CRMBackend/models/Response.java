@@ -20,5 +20,5 @@ public class Response {
 	private String message;
 	private LocalDateTime createdTime;
 	private int ticketId;
-	
+	private boolean responseByAgent;
 }

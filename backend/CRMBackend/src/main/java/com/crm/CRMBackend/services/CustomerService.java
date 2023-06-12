@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Service;
 
+import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 
 @Service
@@ -23,11 +24,26 @@ public class CustomerService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public List<Ticket> getTickets(Integer customerId){
+	public List<Response> getResponses(Integer ticketId){
+		String query = "select * from responses where ticket_id = ? order by created_time";
+		return jdbcTemplate.query(
+				query,
+				new Object[] {ticketId},
+				(rs, rowNum) -> {
+					Response r = new Response();
+					r.setMessage(rs.getString("message"));
+					r.setCreatedTime(rs.getTimestamp("created_time").toLocalDateTime());
+					r.setResponseByAgent(rs.getInt("response_by_agent")==1?true:false);
+					return r;
+				}
+		);
+	}
+	
+	public List<Ticket> getTickets(Integer ticketId){
 		String query = "select * from tickets where customer_id=?";
 		return jdbcTemplate.query(
 				query,
-				new Object[] {customerId}, 
+				new Object[] {ticketId}, 
 				(rs, rowNum) -> {
 					Ticket t = new Ticket();
 					t.setId(rs.getInt("id"));

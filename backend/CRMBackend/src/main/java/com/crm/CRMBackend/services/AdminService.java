@@ -210,4 +210,41 @@ public class AdminService {
 	public void editResponse() {
 		
 	}
+	
+	
+	public List<Ticket> getTickets(Integer ticketId){
+		String query = "select * from tickets where ticket_id=?";
+		return jdbcTemplate.query(
+				query,
+				new Object[] {ticketId}, 
+				(rs, rowNum) -> {
+					Ticket t = new Ticket();
+					t.setId(rs.getInt("id"));
+					t.setTitle(rs.getString("title"));
+					t.setDescription(rs.getString("description"));
+					t.setStatus(rs.getString("status"));
+					t.setCreatedTime(rs.getTimestamp("created_time").toLocalDateTime());
+					t.setPriority(rs.getInt("priority"));					
+					return t;
+				}
+		);
+	}
+	
+	public List<Response> getResponses(Integer ticketId){
+		String query = "select * from responses where ticket_id = ? order by created_time";
+		return jdbcTemplate.query(
+				query,
+				new Object[] {ticketId},
+				(rs, rowNum) -> {
+					Response r = new Response();
+					r.setId(rs.getInt("id"));
+					r.setMessage(rs.getString("message"));
+					r.setCreatedTime(rs.getTimestamp("created_time").toLocalDateTime());
+					r.setTicketId(ticketId);
+					return r;
+				}
+		);
+	}
+	
+	
 }
