@@ -1,0 +1,74 @@
+
+<div class="container-fluid">
+    <!-- Top Horizontal navigation bar -->
+    <div class="row" style="background-color: rgb(3, 3, 133);">
+        <div class="col">
+            <nav class="nav">
+                <a class="nav-link px-5 text-white" aria-current="page" href="#">Tickets</a>
+                <a class="nav-link px-5 text-white" href="#">Agents</a>
+                <a class="nav-link px-5 text-white" href="#">Customers</a>
+                <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+            </nav>
+        </div>
+    </div>
+    <!-- Top Horizontal navigation bar -->
+    <div class="row">
+        <div class="col-2 border" style="background-color: whitesmoke;" >
+            <!-- <p>Sub-Nav options goes here</p> -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/admin/view-tickets">View Tickets</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/ticket-analytics">Analytics</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/ticket-categories">Categories</a>
+                </li>
+              </ul>
+        </div>
+        <!-- ticket cards goes here -->
+            <div class="col-8 border p-0" style="background-color: whitesmoke;" >
+                <div class="container" *ngFor="let ticket of tickets">
+                    <div class="row">
+                        <div class="col border gy-2 p-0">
+                            <app-ticket-card></app-ticket-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- filter options -->
+            <div class="col-2 border px-3 pt-5">
+                <div class="row">
+                    <div class="col">
+                        Search tickets by:
+                    </div>
+                </div>
+                <div class="row mb-2 mt-0">
+                    <div class="col">
+                        <select class="form-control ">
+                            <option>Ticket ID</option>
+                            <option>Title</option>
+                            <option>Client</option>
+                            <option>Status</option>
+                            <option>Agent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input placeholder="Value" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <button class="container btn btn-primary">Search</button>
+                    </div>
+                </div>
+                
+                
+            </div>            
+        </div>
+</div>
+
