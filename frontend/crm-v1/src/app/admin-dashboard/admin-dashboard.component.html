@@ -1,74 +1,72 @@
-
-<div class="container-fluid">
-    <!-- Top Horizontal navigation bar -->
-    <div class="row" style="background-color: rgb(3, 3, 133);">
-        <div class="col">
+<div style="width: 100%; height: 10%; background-color: rgb(0, 2, 110);">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col px-5 py-3">
             <nav class="nav">
-                <a class="nav-link px-5 text-white" aria-current="page" href="#">Tickets</a>
-                <a class="nav-link px-5 text-white" href="#">Agents</a>
-                <a class="nav-link px-5 text-white" href="#">Customers</a>
-                <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+                <span class="nav-option ">
+                    <a class="nav-link px-4 text-white" href="/admin/tickets">Tickets</a>
+                </span>
+                <span class="nav-option ">
+                    <a class="nav-link px-4 text-white" href="/admin/agents">Agents</a>
+                </span>
+                <span class="nav-option ">
+                    <a class="nav-link px-4 text-white" href="/admin/customers">Customers</a>
+                </span>        
             </nav>
+            </div>
         </div>
     </div>
-    <!-- Top Horizontal navigation bar -->
-    <div class="row">
-        <div class="col-2 border" style="background-color: whitesmoke;" >
-            <!-- <p>Sub-Nav options goes here</p> -->
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/admin/view-tickets">View Tickets</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin/ticket-analytics">Analytics</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin/ticket-categories">Categories</a>
-                </li>
-              </ul>
-        </div>
-        <!-- ticket cards goes here -->
-            <div class="col-8 border p-0" style="background-color: whitesmoke;" >
-                <div class="container" *ngFor="let ticket of tickets">
-                    <div class="row">
-                        <div class="col border gy-2 p-0">
-                            <app-ticket-card></app-ticket-card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- filter options -->
-            <div class="col-2 border px-3 pt-5">
-                <div class="row">
-                    <div class="col">
-                        Search tickets by:
-                    </div>
-                </div>
-                <div class="row mb-2 mt-0">
-                    <div class="col">
-                        <select class="form-control ">
-                            <option>Ticket ID</option>
-                            <option>Title</option>
-                            <option>Client</option>
-                            <option>Status</option>
-                            <option>Agent</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row my-2">
-                    <div class="col">
-                        <input placeholder="Value" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row my-2">
-                    <div class="col">
-                        <button class="container btn btn-primary">Search</button>
-                    </div>
-                </div>
-                
-                
-            </div>            
-        </div>
 </div>
 
+
+<div style="width: 100%; height: 90%;">
+
+
+    <div style="
+        float:left;
+        /* display: inline-block;  */
+        width: 15%; 
+        height: 100%; 
+        background-color: whitesmoke;
+        ">
+
+        <!-- <div class="container-fluid">
+    <div class="row" style="background-color: rgb(3, 3, 133);">
+        <div class="col">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+</div> -->
+    </div>
+
+    <div style="
+    float: left;
+    overflow-y: scroll;
+    width: 70%; height: 100%; background-color: white;">
+        <!-- <div class="container-fluid">
+            <div class="row">
+                    <div class="col border p-0" style="background-color: whitesmoke;" >
+                        <div class="container" *ngFor="let ticket of [1,1,1,1,1,1,1,1,1,1,1,1]">
+                            <div class="row">
+                                <div class="col border gy-2 p-0">
+                                    <app-ticket-card></app-ticket-card>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+        </div> -->
+        <router-outlet></router-outlet>
+        
+    </div>
+    <div style="
+    float:left;
+    width: 15%; height: 100%; background-color: whitesmoke;">
+        <h1>Filter Panel goes here.</h1>
+    </div>
+    
+</div>

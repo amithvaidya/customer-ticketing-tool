@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent {
-  tickets: any[] = [
-    1,2,3,4,1,1,1,1,1,1
-  ];
+  
 }
