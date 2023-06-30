@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Ticket } from '../Ticket';
 
 @Component({
   selector: 'app-ticket-card',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./ticket-card.component.css']
 })
 export class TicketCardComponent {
+  @Input() ticket: Ticket = {
+    id: 0,
+    title: "",
+    handledBy: "",
+    createdDate: "",
+    status: "",
+    priority: ""
+  };
   
 }

@@ -54,6 +54,16 @@ export class AgentsAnalyticsComponent {
     type: "line"
   }
 
+  chart3: ApexChart = {
+    height: 350,
+    type: "line"
+  }
+
+  chart4: ApexChart = {
+    height: 350,
+    type: "line"
+  }
+
   title1: ApexTitleSubtitle = {
     text: "No. of tickets for the week"
   };

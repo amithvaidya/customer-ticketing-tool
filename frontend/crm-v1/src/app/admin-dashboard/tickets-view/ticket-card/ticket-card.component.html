@@ -1,26 +1,33 @@
 
 <div style="background-color: white;" >
-<div class="container-fluid" style="background-color: white;">
+<div class="container-fluid" style="background-color: whitesmoke">
 <div class="row py-3">
         <div class="col ">
-            <h3 class="ticket-title">Title of the ticket goes here.</h3>
+            <h3 class="ticket-title">
+                {{this.ticket.title}}
+            </h3>
         </div>
     </div>
     <div class="row py-3">
-        <div class="col ticket-desc-tag">
-            Client's Name
+        <div class="col-2 ticket-desc-tag">
+            <i class="bi bi-person-circle text-primary"></i>Client's Name
+        </div>
+        <div class="col-3 ticket-desc-tag">
+            <i class="bi bi-calendar-event text-primary"></i>Created On: {{this.ticket.createdDate}}
         </div>
         <div class="col ticket-desc-tag">
-            Created On: date-vale
+            <i *ngIf="this.ticket.status == 'Pending'" style="font-size: 16px; font-weight:bolder;" class="bi bi-exclamation-circle text-warning"></i>
+            <i *ngIf="this.ticket.status == 'Resolved'" style="font-size: 16px;" class="bi bi-check-circle text-success text-md"></i>
+            <i *ngIf="this.ticket.status == 'Open'" style="font-size: 16px;" class="bi bi-dash-circle text-danger"></i>
+            {{this.ticket.status}}
         </div>
         <div class="col ticket-desc-tag">
-            Status: Open
+            <i class="bi bi-square-fill" [ngClass]="this.ticket.priority=='High'?'text-danger':(this.ticket.priority=='Medium'?'text-warning':'text-success')"></i>
+            Priority: {{this.ticket.priority}}
         </div>
         <div class="col ticket-desc-tag">
-            Priority: Low
-        </div>
-        <div class="col ticket-desc-tag">
-            Handled By: Agent's Name
+            <i class="bi bi-person-circle text-success"></i>
+            Handled By: {{this.ticket.handledBy}}
         </div>
     </div>
 </div>

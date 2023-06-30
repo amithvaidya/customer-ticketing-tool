@@ -18,3 +18,12 @@
     padding-left: 1em;
     display: inline-block;
 }
+
+
+.selected {
+    color: yellow;
+}
+
+.notSelected {
+    color: white;
+}
