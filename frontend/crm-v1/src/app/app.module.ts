@@ -13,6 +13,10 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { TicketsViewComponent } from './admin-dashboard/tickets-view/tickets-view.component';
 import { CustomersViewComponent } from './admin-dashboard/customers-view/customers-view.component';
 import { AgentDetailsTableComponent } from './admin-dashboard/agents-view/agent-details-table/agent-details-table.component';
+import { TicketIndividualViewComponent } from './admin-dashboard/ticket-individual-view/ticket-individual-view.component';
+import { CustomerCardComponent } from './admin-dashboard/customers-view/customer-card/customer-card.component';
+// import { TicketResponseComponent } from './admin-dashboard/ticket-individual-view/ticket-response/ticket-response.component';
+import { TicketResponsesComponent } from './admin-dashboard/ticket-individual-view/ticket-responses/ticket-responses.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import { AgentDetailsTableComponent } from './admin-dashboard/agents-view/agent-
     AdminDashboardComponent,
     TicketsViewComponent,
     CustomersViewComponent,
-    AgentDetailsTableComponent
+    AgentDetailsTableComponent,
+    TicketIndividualViewComponent,
+    CustomerCardComponent,
+    TicketResponsesComponent
   ],
   imports: [
     BrowserModule,

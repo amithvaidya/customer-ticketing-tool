@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Ticket } from './Ticket';
 
 @Component({
@@ -6,7 +6,20 @@ import { Ticket } from './Ticket';
   templateUrl: './tickets-view.component.html',
   styleUrls: ['./tickets-view.component.css']
 })
-export class TicketsViewComponent {
+export class TicketsViewComponent implements OnInit{
+
+  @Output() ticketsViewLoadEvent = new EventEmitter<boolean>();
+
+  ticketViewFlag: boolean = false;
+
+  ngOnInit(): void {
+      this.ticketViewFlag = true;
+      this.ticketsViewLoadEvent.emit(this.ticketViewFlag);
+      console.log('Tickets view is initiated.');
+  }
+
+
+
   tickets: Ticket[] = [
     {
       id: 1,
@@ -26,7 +39,7 @@ export class TicketsViewComponent {
       priority: "Low"
     },
     {
-      id: 1,
+      id: 2,
       title: "Title for 3rd ticket",
       handledBy: "Amith",
       createdDate: "23-June-2023",
@@ -34,7 +47,7 @@ export class TicketsViewComponent {
       priority: "Low"
     },
     {
-      id: 1,
+      id: 3,
       title: "Title for 3rd ticket",
       handledBy: "Amith",
       createdDate: "23-June-2023",
@@ -42,7 +55,7 @@ export class TicketsViewComponent {
       priority: "Medium"
     },
     {
-      id: 1,
+      id: 4,
       title: "Title for 3rd ticket",
       handledBy: "Amith",
       createdDate: "23-June-2023",
@@ -50,7 +63,7 @@ export class TicketsViewComponent {
       priority: "High"
     },
     {
-      id: 1,
+      id: 5,
       title: "Title for 3rd ticket",
       handledBy: "Amith",
       createdDate: "23-June-2023",

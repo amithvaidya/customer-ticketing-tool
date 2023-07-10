@@ -4,7 +4,7 @@
 <div class="row py-3">
         <div class="col ">
             <h3 class="ticket-title">
-                {{this.ticket.title}}
+                <a href="/admin/view-ticket/{{this.ticket.id}}">{{this.ticket.title}}</a>
             </h3>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <i class="bi bi-square-fill" [ngClass]="this.ticket.priority=='High'?'text-danger':(this.ticket.priority=='Medium'?'text-warning':'text-success')"></i>
             Priority: {{this.ticket.priority}}
         </div>
-        <div class="col ticket-desc-tag">
+        <div class="col h-25 ticket-desc-tag">
             <i class="bi bi-person-circle text-success"></i>
             Handled By: {{this.ticket.handledBy}}
         </div>

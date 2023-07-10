@@ -1,0 +1,101 @@
+<div class="container-fluid py-4">
+
+    <!-- Ticket title -->
+    <div class="row">
+        <div class="col">
+            <h3>Title of the ticket</h3>
+        </div>
+    </div>
+
+    <!-- Ticket info -->
+    <div class="row">
+        <div class="col-2">
+            <i class="bi bi-person-circle"></i>
+            Agent's name
+        </div>
+        <div class="col-1">
+            Open
+        </div>
+        <div class="col-1">
+            <i class="bi bi-square-fill"></i>
+            High
+        </div>
+        <div class="col-3">
+            <i class="bi bi-person-circle"></i>
+            Client's name - 
+            <i class="bi bi-briefcase-fill"></i>
+            Company's name
+        </div>
+        <div class="col">
+            <i class="bi bi-calendar-event"></i>
+                19-June-2023
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col">
+            <div style="
+                background-color: rgb(255, 178, 164); 
+                color: rgb(146, 0, 0);
+                border: 1px solid rgb(146, 0, 0);
+                border-radius: 1rem;
+                padding-left: 1rem;
+                margin-left: 1rem;
+                width: 11rem;
+                display: inline-block;
+                ">First Response Due</div>
+
+                <div style="
+                background-color: rgb(255, 255, 151); 
+                color: rgb(182, 182, 0);
+                border: 1px solid rgb(182, 182, 0);
+                border-radius: 1rem;
+                padding-left: 1rem;
+                margin-left: 1rem;
+                width: 11rem;
+                display:inline-block;
+                ">Issue Category A</div>
+
+            <div style="
+                background-color: rgb(146, 255, 146); 
+                color: green;
+                border: 1px solid green;
+                border-radius: 1rem;
+                padding-left: 1rem;
+                margin-left: 1rem;
+                width: 11rem;
+                display:inline-block;
+                ">High Value Customer</div>
+
+            <div style="
+            background-color: rgb(176, 176, 255); 
+            color: blue;
+            border: 1px solid blue;
+            border-radius: 1rem;
+            padding-left: 1rem;
+            margin-left: 1rem;
+            width: 11rem;
+            display:inline-block;
+            ">Other Tags</div>
+        </div>
+
+    </div>
+
+    <div class="row my-3">
+        <div class="col-2">Add Response</div>
+        <div class="col-6">
+            <input type="text" name="" id="" class="form-control">
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary">Add Response</button>
+        </div>
+    </div>
+
+    <!-- Ticket responses -->
+    <div class="row">
+        <div class="col">
+            <app-ticket-responses></app-ticket-responses>
+        </div>
+    </div>
+
+</div>

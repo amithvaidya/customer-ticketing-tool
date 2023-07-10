@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col px-5 py-3">
             <nav class="nav">
-                <span class="nav-option ">
-                    <a class="nav-link px-4 text-white" href="/admin/tickets">Tickets</a>
+                <span class="nav-option " (click)="setNavStyle('tickets')" >
+                    <a class="nav-link px-4 text-white" href="/admin/tickets" [ngClass]="ticketClass">Tickets</a>
                 </span>
-                <span class="nav-option ">
-                    <a class="nav-link px-4 text-white" href="/admin/agents">Agents</a>
+                <span class="nav-option " (click)="setNavStyle('agents')">
+                    <a class="nav-link px-4 text-white" href="/admin/agents"  [ngClass]="agentClass">Agents</a>
                 </span>
-                <span class="nav-option ">
-                    <a class="nav-link px-4 text-white" href="/admin/customers">Customers</a>
+                <span class="nav-option " (click)="setNavStyle('customers')">
+                    <a class="nav-link px-4 text-white" href="/admin/customers"  [ngClass]="customerClass">Customers</a>
                 </span>        
             </nav>
             </div>
@@ -29,7 +29,6 @@
         height: 100%; 
         background-color: whitesmoke;
         ">
-        Hello World
     </div>
 
     <div style="

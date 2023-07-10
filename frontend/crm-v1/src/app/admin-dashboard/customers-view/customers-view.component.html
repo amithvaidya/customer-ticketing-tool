@@ -1,1 +1,7 @@
-<p>customers-view works!</p>
+<div class="container-fluid">
+    <div class="row"  *ngFor="let customer of customers">
+        <div class="col">
+            <app-customer-card [customer]="customer"></app-customer-card>
+        </div>
+    </div>
+</div>

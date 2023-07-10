@@ -1,1 +1,39 @@
-<p>agent-dashboard works!</p>
+
+<div style="width: 100%; height: 10%; background-color: rgb(0, 2, 110);">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col px-5 py-3">
+            <nav class="nav">
+                <span class="nav-option">
+                    <a class="nav-link px-4 text-white" href="/admin/tickets">View Tickets</a>
+                </span>
+                <span class="nav-option">
+                    <a class="nav-link px-4 text-white" href="/admin/agents" >Customers</a>
+                </span>
+            </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="width: 100%; height: 90%;">
+
+
+    <div style="
+        float:left;
+        /* display: inline-block;  */
+        width: 10%; 
+        height: 100%; 
+        background-color: whitesmoke;
+        ">
+    </div>
+
+    <div style="
+    float: left;
+    overflow-y: scroll;
+    width: 90%; height: 100%;">
+        <router-outlet></router-outlet>
+    </div>
+    
+</div>

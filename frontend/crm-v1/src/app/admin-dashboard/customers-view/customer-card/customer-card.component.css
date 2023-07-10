@@ -1,0 +1,9 @@
+
+.displayDetails {
+    display: block;
+    background-color: aqua;
+}
+
+.hideDetails {
+    display: none;
+}

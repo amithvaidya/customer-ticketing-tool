@@ -7,6 +7,7 @@ import { AgentsAnalyticsComponent } from './admin-dashboard/agents-view/agents-a
 import { TicketsViewComponent } from './admin-dashboard/tickets-view/tickets-view.component';
 import { AgentsViewComponent } from './admin-dashboard/agents-view/agents-view.component';
 import { CustomersViewComponent } from './admin-dashboard/customers-view/customers-view.component';
+import { TicketIndividualViewComponent } from './admin-dashboard/ticket-individual-view/ticket-individual-view.component';
 // import { TicketAnalyticsComponent } from './admin-dashboard/tickets-view/ticket-analytics/ticket-analytics.component';
 
 
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'tickets', component: TicketsViewComponent},
       {path: 'agents', component: AgentsViewComponent},
       {path: 'customers', component: CustomersViewComponent},
+      {path: 'view-ticket/:id', component: TicketIndividualViewComponent}
       
     ]
   },

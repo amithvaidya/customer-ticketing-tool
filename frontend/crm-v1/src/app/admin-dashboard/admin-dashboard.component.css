@@ -27,3 +27,12 @@
 .notSelected {
     color: white;
 }
+
+
+.default {
+    color: aqua;
+}
+
+.highlight {
+    color: yellow;
+}
