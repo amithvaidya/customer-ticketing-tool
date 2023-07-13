@@ -17,6 +17,8 @@ import { TicketIndividualViewComponent } from './admin-dashboard/ticket-individu
 import { CustomerCardComponent } from './admin-dashboard/customers-view/customer-card/customer-card.component';
 // import { TicketResponseComponent } from './admin-dashboard/ticket-individual-view/ticket-response/ticket-response.component';
 import { TicketResponsesComponent } from './admin-dashboard/ticket-individual-view/ticket-responses/ticket-responses.component';
+import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
+import { CreateTicketComponent } from './customer-dashboard/create-ticket/create-ticket.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { TicketResponsesComponent } from './admin-dashboard/ticket-individual-vi
     AgentDetailsTableComponent,
     TicketIndividualViewComponent,
     CustomerCardComponent,
-    TicketResponsesComponent
+    TicketResponsesComponent,
+    CustomerDashboardComponent,
+    CreateTicketComponent
   ],
   imports: [
     BrowserModule,

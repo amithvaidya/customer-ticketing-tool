@@ -1,4 +1,28 @@
 <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="container-fluid">
+                <div class="row my-2">
+                    <div class="col">
+                        <h5>Client</h5>
+                    </div>
+                    <div class="col">
+                        <h5>Company</h5>
+                    </div>
+                    <div class="col">
+                        <h5>Priority</h5>
+                    </div>
+                    <div class="col">
+                        <h5>Number of Tickets</h5>
+                    </div>
+                    <div class="col">
+                        <h5>CSAT</h5>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
     <div class="row"  *ngFor="let customer of customers">
         <div class="col">
             <app-customer-card [customer]="customer"></app-customer-card>

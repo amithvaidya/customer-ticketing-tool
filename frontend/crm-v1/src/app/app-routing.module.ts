@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
-// import { TicketCardComponent } from './admin-dashboard/tickets-view/ticket-card/ticket-card.component';
 import { AgentsAnalyticsComponent } from './admin-dashboard/agents-view/agents-analytics/agents-analytics.component';
 import { TicketsViewComponent } from './admin-dashboard/tickets-view/tickets-view.component';
 import { AgentsViewComponent } from './admin-dashboard/agents-view/agents-view.component';
 import { CustomersViewComponent } from './admin-dashboard/customers-view/customers-view.component';
 import { TicketIndividualViewComponent } from './admin-dashboard/ticket-individual-view/ticket-individual-view.component';
-// import { TicketAnalyticsComponent } from './admin-dashboard/tickets-view/ticket-analytics/ticket-analytics.component';
+import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
+import { CreateTicketComponent } from './customer-dashboard/create-ticket/create-ticket.component';
 
 
 const routes: Routes = [
@@ -23,7 +23,16 @@ const routes: Routes = [
     ]
   },
   {path:'agent', component: AgentDashboardComponent},
-  {path:'agent-analytics', component: AgentsAnalyticsComponent}
+  {path:'agent-analytics', component: AgentsAnalyticsComponent},
+  {
+    path:'customer', 
+    component: CustomerDashboardComponent,
+    children: [
+      {path: '', component: TicketsViewComponent},
+      {path: 'view-tickets', component: TicketsViewComponent},
+      {path: 'create-ticket', component: CreateTicketComponent}
+    ]
+  }
   
 ];
 

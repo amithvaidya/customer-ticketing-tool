@@ -1,4 +1,4 @@
-
+<!-- 
 <div style="margin-left:10%; margin-right: 10%; background-color: antiquewhite;">
     <p (click)="showClientDetails()">{{this.customer.name}} </p>
     <div [ngClass]="showClientDetailsFlag?'displayDetails':'hideDetails'">
@@ -10,12 +10,11 @@
             <li>Ticket1</li>
         </ul>
     </div>
-</div>
+</div> -->
 
 
 
-
-<!-- <div class="container-fluid">
+<div class="container-fluid">
     <div class="row my-2"  style="background-color: whitesmoke;" (mouseleave)="hideClientDetails()">
         <div class="col" (mouseover)="showClientDetails()" >
             {{this.customer.name}}
@@ -23,10 +22,10 @@
             
             >
                 <p>List of tickets by this client</p>
-                <ul>
-                    <li>CRB-1234</li>
-                    <li>CRB-1211</li>
-                    <li>CFR-1122</li>
+                <ul style="list-style-type: none; display: inline-block;">
+                    <li>#1234</li>
+                    <li>#1211</li>
+                    <li>#1122</li>
                 </ul>
             </div>
         </div>
@@ -43,5 +42,5 @@
             {{this.customer.satisfactionRating}}
         </div>
     </div>
-</div> -->
+</div>
 
