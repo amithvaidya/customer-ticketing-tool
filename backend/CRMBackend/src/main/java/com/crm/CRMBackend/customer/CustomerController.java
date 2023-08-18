@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.controller;
+package com.crm.CRMBackend.customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crm.CRMBackend.models.Response;
-import com.crm.CRMBackend.models.Ticket;
-import com.crm.CRMBackend.services.CustomerService;
+import com.crm.CRMBackend.util.Response;
+import com.crm.CRMBackend.util.Ticket;
 
 @RestController
 @RequestMapping("/customer")

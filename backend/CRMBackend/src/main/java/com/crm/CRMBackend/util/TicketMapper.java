@@ -1,12 +1,10 @@
-package com.crm.CRMBackend.dao;
+package com.crm.CRMBackend.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.RowMapper;
-
-import com.crm.CRMBackend.models.Ticket;
 
 public class TicketMapper implements RowMapper<Ticket>{
 	

@@ -1,8 +1,10 @@
-package com.crm.CRMBackend.models;
+package com.crm.CRMBackend.customer;
 
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+
+import com.crm.CRMBackend.util.Ticket;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

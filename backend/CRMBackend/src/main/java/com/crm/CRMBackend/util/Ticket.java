@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.models;
+package com.crm.CRMBackend.util;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

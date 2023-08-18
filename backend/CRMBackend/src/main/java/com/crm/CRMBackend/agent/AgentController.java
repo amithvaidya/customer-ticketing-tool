@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.controller;
+package com.crm.CRMBackend.agent;
 
 import java.util.List;
 import java.util.Map;
@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crm.CRMBackend.models.Customer;
-import com.crm.CRMBackend.models.Response;
-import com.crm.CRMBackend.models.Ticket;
-import com.crm.CRMBackend.services.AgentService;
+import com.crm.CRMBackend.customer.Customer;
+import com.crm.CRMBackend.util.Response;
+import com.crm.CRMBackend.util.Ticket;
 
 @RestController
 @RequestMapping("/agent")

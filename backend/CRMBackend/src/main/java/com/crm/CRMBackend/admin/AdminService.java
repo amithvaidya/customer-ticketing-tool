@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.services;
+package com.crm.CRMBackend.admin;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,11 +16,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.crm.CRMBackend.dao.AgentMapper;
-import com.crm.CRMBackend.dao.TicketMapper;
-import com.crm.CRMBackend.models.Agent;
-import com.crm.CRMBackend.models.Response;
-import com.crm.CRMBackend.models.Ticket;
+import com.crm.CRMBackend.agent.Agent;
+import com.crm.CRMBackend.agent.AgentMapper;
+import com.crm.CRMBackend.util.Response;
+import com.crm.CRMBackend.util.Ticket;
+import com.crm.CRMBackend.util.TicketMapper;
 
 @Service
 public class AdminService {

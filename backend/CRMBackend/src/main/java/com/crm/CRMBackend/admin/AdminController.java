@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.controller;
+package com.crm.CRMBackend.admin;
 
 import java.util.List;
 import java.util.Map;
@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crm.CRMBackend.models.Admin;
-import com.crm.CRMBackend.models.Agent;
-import com.crm.CRMBackend.models.Response;
-import com.crm.CRMBackend.models.Ticket;
-import com.crm.CRMBackend.services.AdminService;
-import com.crm.CRMBackend.services.AgentService;
+import com.crm.CRMBackend.agent.Agent;
+import com.crm.CRMBackend.agent.AgentService;
+import com.crm.CRMBackend.util.Response;
+import com.crm.CRMBackend.util.Ticket;
 
 @RestController
 @RequestMapping("/admin")

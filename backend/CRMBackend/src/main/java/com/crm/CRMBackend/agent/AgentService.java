@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.services;
+package com.crm.CRMBackend.agent;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,10 +17,9 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.crm.CRMBackend.models.Agent;
-import com.crm.CRMBackend.models.Customer;
-import com.crm.CRMBackend.models.Response;
-import com.crm.CRMBackend.models.Ticket;
+import com.crm.CRMBackend.customer.Customer;
+import com.crm.CRMBackend.util.Response;
+import com.crm.CRMBackend.util.Ticket;
 
 @Service
 public class AgentService {

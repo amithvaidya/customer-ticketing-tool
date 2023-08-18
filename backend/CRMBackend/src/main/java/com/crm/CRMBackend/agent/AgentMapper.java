@@ -1,11 +1,9 @@
-package com.crm.CRMBackend.dao;
+package com.crm.CRMBackend.agent;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
-
-import com.crm.CRMBackend.models.Agent;
 
 public class AgentMapper implements RowMapper<Agent>{
 	
