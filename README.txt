@@ -30,3 +30,20 @@ Functionalities:
 	-Can view all tickets raised by him/her
 	-Can create ticket, respond and send feedback rating
 
+
+Definition of Agent metrics:
+
+1) Average Response Time:
+
+Average Response Time for a ticket is the average of time duration between a customer's response and the immediate after response of the agent.
+Average Response Time of an agent is the average of ART of all the tickets handled by him.
+Overall Average Response Time of the support team is the average of ART of all the agents.
+This can be calculated on a date basis (Average Response Time for each agent for a particular date).
+
+
+2) Average Resolution Time:
+The same concept of ART explained above, only change is the context of time is taken from resolution.
+
+3) Agent CSAT
+Average of the csat_rating for all tickets handled by the agent and where the customer has provided the rating. Note you must exclude the tickets where customer has not given the rating.
+
