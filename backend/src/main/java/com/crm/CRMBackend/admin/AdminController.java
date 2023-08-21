@@ -22,13 +22,13 @@ import com.crm.CRMBackend.util.Ticket;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*")
 public class AdminController {
 	
 	@Autowired
 	private AdminService service;
 	
 	@GetMapping("/agents")
-	@CrossOrigin(origins = "*")
 	public ResponseEntity<List<Map<String, Object>>> agents(){
 		return new ResponseEntity<>(service.getAgents(), HttpStatus.OK);
 	}
