@@ -10,9 +10,9 @@ Functionalities:
 
 1) Admin
 
-	-Admin can get the performance of an agent on a day to day basis
-	-Admin can get information about the customers
-	-Admin can create tickets and assign to Agents
+	-Can get the performance of an agent on a day to day basis
+	-Can get information about the customers
+	-Can create tickets and assign to Agents
 	-Can create a new Agent profile
 	-Can filter and view all the tickets received
 	-Can comment on the tickets
