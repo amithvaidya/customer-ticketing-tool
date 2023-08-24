@@ -1,0 +1,8 @@
+
+Steps to build the backend:
+
+	1) Setup database and create tables
+	2) Test all the queries for each component: Admin, Agent, Customer, Ticket, Responses, etc
+	3) Create a maven quickstart archetype project, write the functionality using simple JDBC concepts
+	4) Using Spring Framework, use the annotions (@Component) and package this module
+	5) Use this module to write APIs and expose them

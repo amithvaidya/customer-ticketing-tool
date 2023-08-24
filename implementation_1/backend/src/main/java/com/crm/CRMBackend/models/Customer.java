@@ -1,10 +1,8 @@
-package com.crm.CRMBackend.customer;
+package com.crm.CRMBackend.models;
 
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-
-import com.crm.CRMBackend.util.Ticket;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +20,7 @@ public class Customer {
 	private String name;
 	private String password;
 	private List<Ticket> tickets;
-	private String company;
+	private String companyName;
 	private String emailId;
 	private String phone; 
 	

@@ -1,0 +1,57 @@
+
+	-----------------------
+	| Tables in databases |
+	-----------------------
+
+create table ticket (
+	id int,
+	title varchar(128),
+	description varchar(1024),
+	created_timestamp timestamp,
+	agent_id int,
+	customer_id int,
+	csat_rating float,
+
+	primary key(id),
+	foreign key(agent_id) references agent(id),
+	foreign key(customer_id) references customer(id)
+);
+
+create table attachments (
+	id int,
+	ticket_id int,
+	content blob,
+
+	primary key(id),
+	foreign key (ticket_id) references ticket(id)
+);
+
+create table agent(
+	id int,
+	name varchar(32),
+	status varchar(32),
+	primary key(id)	
+);
+
+create table customer (
+	id int,
+	customer_name varchar(32),
+	company_name varchar(64),		
+);
+
+
+create table ticket_responses (
+	id int,
+	ticket_id int,
+	created_timestamp timestamp,
+	status varchar(128),
+	message varchar(4096),
+	agent_id int,
+	customer_id int
+
+	primary key (id),
+	foreign key (ticket_id) references ticket(id),
+	foreign key (agent_id) references agent(id),
+	foreign key (customer_id) references customer(id)
+);
+

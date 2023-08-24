@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.admin;
+package com.crm.CRMBackend.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,25 +16,29 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.crm.CRMBackend.agent.Agent;
-import com.crm.CRMBackend.agent.AgentMapper;
-import com.crm.CRMBackend.util.Response;
-import com.crm.CRMBackend.util.Ticket;
-import com.crm.CRMBackend.util.TicketMapper;
+import com.crm.CRMBackend.dao.AgentMapper;
+import com.crm.CRMBackend.dao.TicketMapper;
+import com.crm.CRMBackend.models.Agent;
+import com.crm.CRMBackend.models.Response;
+import com.crm.CRMBackend.models.Ticket;
+import com.crm.CRMBackend.util.UtilServices;
 
 @Service
 public class AdminService {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private UtilServices util;
 		
 	public List<Map<String, Object>> getAgents(){
 		List<Map<String, Object>> agents = jdbcTemplate.queryForList("select id as agentId, name as agentName from agents");
 		for(int i=0; i<agents.size(); i++) {
 			System.out.println("Agent: "+agents.get(i).get("agentId").toString());
 			agents.get(i).put("numOfTickets", getNumOfTickets(agents.get(i).get("agentId").toString()));
-			agents.get(i).put("avgResponseTime", timeParser(getAvgResponseTime(agents.get(i).get("agentId").toString())));
-			agents.get(i).put("avgResolutionTime",timeParser( getAvgResolutionTime(agents.get(i).get("agentId").toString())));
+			agents.get(i).put("avgResponseTime", util.timeParser(getAvgResponseTime(agents.get(i).get("agentId").toString())));
+			agents.get(i).put("avgResolutionTime",util.timeParser( getAvgResolutionTime(agents.get(i).get("agentId").toString())));
 			agents.get(i).put("avgCustomerRating", avgCustomerRating(agents.get(i).get("agentId").toString()));
 		}		
 		return agents;
@@ -48,27 +52,6 @@ public class AdminService {
 	}
 	
 	
-	public String timeParser(Long time) {
-		Long days, hours, mins, sec;
-		String ret = "";
-		if(time > 86400) {
-			days = time / 86400;
-			time %= 86400;
-			ret+= days+"d, ";
-		}
-		if(time > 3600) {
-			hours = time/3600;
-			time %= 3600;
-			ret += hours+"h, ";
-		}
-		if(time > 60) {
-			mins = time / 60;
-			time %= 60;
-			ret += mins +"m, ";
-		}
-		ret += time+"s";
-		return ret;
-	}
 	
 	
 	public Float avgCustomerRating(String agentId) {

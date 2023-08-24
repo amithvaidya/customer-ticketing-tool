@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.admin;
+package com.crm.CRMBackend.models;
 
 import org.springframework.stereotype.Component;
 

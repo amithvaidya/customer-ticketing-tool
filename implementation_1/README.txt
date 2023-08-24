@@ -1,5 +1,5 @@
 	 -------------------------
-	|Customer ticketing tool  |
+	| Customer ticketing tool |
  	 -------------------------
 
 Summary:
@@ -46,4 +46,23 @@ The same concept of ART explained above, only change is the context of time is t
 
 3) Agent CSAT
 Average of the csat_rating for all tickets handled by the agent and where the customer has provided the rating. Note you must exclude the tickets where customer has not given the rating.
+
+
+Tech Stack:
+
+Version 1:
+	-No frameworks like spring is used, just JDBC, Servlets and JSP
+	-Create a seperate package for Servlets/JSP and other functionalities
+	-Just use notepad, maven and apache tomcat to write and execute the code
+Version 2:
+	-Upgrade to Spring Framework
+	-Use Spring MVC and Spring JDBC APIs
+	-Use JSP to display the frontend
+Version 3:
+	-Move to Spring boot
+	-For frontend, use Angular framework
+
+
+
+
 

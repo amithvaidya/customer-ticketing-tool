@@ -1,4 +1,6 @@
-package com.crm.CRMBackend.agent;
+package com.crm.CRMBackend.models;
+
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -16,9 +18,10 @@ public class Agent {
 	
 	private String agentName;
 	private int agentId;
+	private String agentActivityStatus;	
 	private float avgCustomerRating;
-	private int ticketsAssigned;
+	private int numTicketsAssigned;
 	private String avgResponseTime;
 	private String avgResolutionTime;
-	
+	private List<Ticket> tickets;
 }

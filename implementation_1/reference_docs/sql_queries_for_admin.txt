@@ -1,0 +1,7 @@
+
+// List of all agent ids and name
+select id as agent_id, name as agent_name from agents
+
+// Fetch customer rating for a given agent
+select avg(csat_rating) from ticket 
+	where agent_id = ? and created_timestamp = 
