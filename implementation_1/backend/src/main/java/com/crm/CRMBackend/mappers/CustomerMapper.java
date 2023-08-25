@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.dao;
+package com.crm.CRMBackend.mappers;
 
 import java.sql.ResultSet;
 

@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Service;
 
+import com.crm.CRMBackend.dao.GeneralDAO;
 import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 
@@ -22,67 +23,22 @@ public class CustomerService {
 	
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private GeneralDAO dao;
 	
 	public List<Response> getResponses(Integer ticketId){
-		String query = "select * from responses where ticket_id = ? order by created_time";
-		return jdbcTemplate.query(
-				query,
-				new Object[] {ticketId},
-				(rs, rowNum) -> {
-					Response r = new Response();
-					r.setMessage(rs.getString("message"));
-					r.setCreatedTime(rs.getTimestamp("created_time").toLocalDateTime());
-					r.setResponseByAgent(rs.getInt("response_by_agent")==1?true:false);
-					return r;
-				}
-		);
+		return dao.getAllResponsesForTicket(ticketId);
 	}
 	
-	public List<Ticket> getTickets(Integer ticketId){
-		String query = "select * from tickets where customer_id=?";
-		return jdbcTemplate.query(
-				query,
-				new Object[] {ticketId}, 
-				(rs, rowNum) -> {
-					Ticket t = new Ticket();
-					t.setId(rs.getInt("id"));
-					t.setTitle(rs.getString("title"));
-					t.setDescription(rs.getString("description"));
-					t.setStatus(rs.getString("status"));
-					t.setCreatedTime(rs.getTimestamp("created_time").toLocalDateTime());
-					t.setPriority(rs.getInt("priority"));					
-					return t;
-				}
-		);
+	public List<Ticket> getTickets(int customerId){
+		return dao.getAllTicketsForCustomer(customerId);
 	}
 	
-	public Boolean createTicket(Ticket t){
-		String query = "insert into tickets(title, description, created_time, customer_id, priority, status) values (?,?,?,?,?,?)";
-		return jdbcTemplate.execute(query, new PreparedStatementCallback<Boolean>() {
-			@Override
-			public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException{
-				ps.setString(1, t.getTitle());
-				ps.setString(2, t.getDescription());
-				ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-				ps.setInt(4, t.getCustomerId());
-				ps.setInt(5, t.getPriority());
-				ps.setString(6, "open");
-				return ps.execute();
-			}
-		});
+	public int createTicket(Ticket t){
+		return dao.createTicket(t);
 	}
 	
 	
-	public Boolean addRating(Integer ticketId, Integer rating) {
-		String query = "update tickets set customer_rating = ? where id = ?";
-		return jdbcTemplate.execute(query, new PreparedStatementCallback<Boolean>() {
-			@Override
-			public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException{
-				ps.setInt(1, rating);
-				ps.setInt(2, ticketId);
-				return ps.execute();
-			}
-		});
+	public int addRatingForTicket(int rating) {
+		return dao.addRating(rating);
 	}
 }

@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.dao;
+package com.crm.CRMBackend.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.crm.CRMBackend.models.Ticket;
-import com.crm.CRMBackend.tables.TableColumns;
+import com.crm.CRMBackend.util.TableColumns;
 
 public class TicketMapper implements RowMapper<Ticket>{
 	
@@ -15,7 +15,7 @@ public class TicketMapper implements RowMapper<Ticket>{
 		Ticket ticket = new Ticket();
 		
 		ticket.setId(rs.getInt(TableColumns.Ticket.AGENT_ID));
-		ticket.setDescription(TableColumns.Ticket.DESCRIPTION);
+//		ticket.setDescription(TableColumns.Ticket.DESCRIPTION);
 //		ticket.setStatus(rs.getString("status"));
 		ticket.setCreatedTimestamp(
 				LocalDateTime.of(

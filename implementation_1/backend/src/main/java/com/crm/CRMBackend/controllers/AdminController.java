@@ -30,37 +30,39 @@ public class AdminController {
 	private AdminService service;
 	
 	@GetMapping("/agents")
-	public ResponseEntity<List<Map<String, Object>>> agents(){
-		return new ResponseEntity<>(service.getAgents(), HttpStatus.OK);
+	public ResponseEntity<List<Agent>> agents(){
+		return new ResponseEntity<>(service.getAgentAnalytics(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/tickets")
-	public ResponseEntity<List<Map<String, Object>>> tickets(){
-		return new ResponseEntity<>(service.getTickets(), HttpStatus.OK);
+	public ResponseEntity<List<Ticket>> tickets(){
+		return new ResponseEntity<>(service.getAllTickets(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/create-agent")
-	public ResponseEntity<String> createAgent(@RequestBody Agent agent){
+	public ResponseEntity<Integer> createAgent(@RequestBody Agent agent){
 		return new ResponseEntity<>(service.createAgent(agent), HttpStatus.OK);
 	}
 		
 	@PostMapping("/add-response")
-	public ResponseEntity<String> addComment(@RequestBody Response comment){
+	public ResponseEntity<Integer> addComment(@RequestBody Response comment){
 		service.addResponse(comment);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	
 	@PostMapping("/edit-response")
-	public ResponseEntity<String> editComment(){
-		service.editResponse();
-		return new ResponseEntity<>("", HttpStatus.OK);
+	public ResponseEntity<Integer> editComment(
+				@RequestBody Response response
+			){
+		
+		return new ResponseEntity<>(service.editResponse(response), HttpStatus.OK);
 	}
 	
 	@GetMapping("/responses")
 	public ResponseEntity<List<Response>> responses(
 				@RequestParam Integer ticketId
 			){
-		return new ResponseEntity<>(service.getResponses(ticketId), HttpStatus.OK);
+		return new ResponseEntity<>(service.getAllResponsesForTicket(ticketId), HttpStatus.OK);
 	}
 }

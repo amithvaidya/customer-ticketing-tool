@@ -20,7 +20,7 @@ public class Ticket {
 	
 	private int id;
 	private String title;
-	private String description;
+	private String status;
 	private LocalDateTime createdTimestamp;
 	private int agentId;
 	private int customerId;

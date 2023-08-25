@@ -1,5 +1,8 @@
 package com.crm.CRMBackend.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,4 +30,32 @@ public class UtilServices {
 		return ret;
 	}
 	
+	
+	private String queryBuilder(String base, Map<String, Object> params) {
+		String query = base;
+		int count=0;
+		for(String key : params.keySet()) {
+			if(params.get(key) != null && count==0) {
+				query+="where "+key+"=? ";
+				count++;
+			}
+			else if(params.get(key) != null) {
+				query+=" and "+key+"=? ";
+			}
+			else {
+				//Do nothing.
+			}
+		}
+		
+		return query;
+	}
+	
+	
+	private Map<String, Object> validParamValues(Map<String, Object> params){
+		Map<String, Object> validMap = new HashMap<String, Object>();
+		for(String key: params.keySet()) {
+			if(params.get(key) != null) validMap.put(key, params.get(key));
+		}
+		return validMap;
+	}
 }

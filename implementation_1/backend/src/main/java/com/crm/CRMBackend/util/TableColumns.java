@@ -1,4 +1,4 @@
-package com.crm.CRMBackend.tables;
+package com.crm.CRMBackend.util;
 
 public class TableColumns {
 	public class Ticket {

@@ -17,6 +17,9 @@ import lombok.Setter;
 public class Response {
 	
 	private int id;
+	private int agentId;
+	private int customerId;
+	private int ticketId;
 	private String message;
 	private String ticketStatus;
 	private LocalDateTime createdTime;

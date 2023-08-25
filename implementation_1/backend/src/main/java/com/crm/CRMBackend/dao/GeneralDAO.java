@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.crm.CRMBackend.mappers.AgentMapper;
+import com.crm.CRMBackend.mappers.CustomerMapper;
+import com.crm.CRMBackend.mappers.TicketMapper;
 import com.crm.CRMBackend.models.Agent;
 import com.crm.CRMBackend.models.Customer;
 import com.crm.CRMBackend.models.Response;
@@ -19,6 +22,35 @@ public class GeneralDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public Integer numOfTicketsForAgent(int agentId) {
+		return jdbcTemplate.queryForObject("select count(*) from ticket where agent_id = ?", new Object[] {agentId}, Integer.class);
+	}
+	
+	public List<Response> getAllResponsesForTicket(int ticketId){
+		return jdbcTemplate.query(
+				"select * from response where ticket_id = ?",
+				new Object[] {ticketId},
+				new RowMapper<Response>() {
+					
+					@Override
+					public Response mapRow(ResultSet rs, int rowNum) {
+						Response resp = new Response();
+						try {
+							resp.setId(rs.getInt("id"));
+							resp.setMessage(rs.getString("message"));
+							resp.setTicketId(rs.getInt("ticket_id"));
+							resp.setTicketStatus(rs.getString("ticket_status"));
+							resp.setCreatedTime(rs.getTimestamp("created_timestamp").toLocalDateTime());
+							resp.setResponseByAgent(rs.getBoolean("response_by_agent"));
+							resp.setAgentId(rs.getInt("agent_id"));
+							resp.setCustomerId(rs.getInt("customer_id"));
+						}catch(SQLException sqle) { sqle.printStackTrace(); }
+						
+						return resp;
+					}
+				}
+				);
+	}
 	
 	public List<Ticket> getAllTickets(){
 		return jdbcTemplate.query("select * from ticket", new TicketMapper());
@@ -117,6 +149,28 @@ public class GeneralDAO {
 	}
 	
 	
+	public List<Integer> getAllTicketsHandledByAgent(int agentId, String status){
+		List<Integer> ticketIds = jdbcTemplate.query(
+				"select id as ticket_id from tickets where agent_id = ? and status = ?", 
+				new Object[] {agentId},
+				new RowMapper<Integer>() {				
+					@Override
+					public Integer mapRow(ResultSet rs, int rowNum) {
+						Integer i;
+						try {
+							i = rs.getInt("id");
+						}catch(SQLException sqle) {
+							sqle.printStackTrace();
+							i = -1;
+						}
+						
+						return i;
+					}
+				}
+			);
+		
+		return ticketIds;
+	}
 	/**
 	 * Get the count and the list of tickets resolved by an agent
 	 * */
@@ -182,6 +236,10 @@ public class GeneralDAO {
 	}
 	
 	public int createCustomer(Customer customer) {
+		return 0;
+	}
+	
+	public int addRating(int csatRating) {
 		return 0;
 	}
 }
