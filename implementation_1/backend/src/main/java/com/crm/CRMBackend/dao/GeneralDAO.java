@@ -184,7 +184,7 @@ public class GeneralDAO {
 	 * */
 	public LocalDateTime getTicketResolvedTImestamp(int ticketId) {
 		LocalDateTime resolvedTimestamp = jdbcTemplate.queryForObject(
-				"select created_timestamp from response where status=?",
+				"select created_timestamp from response where ticket_id=? and status=?",
 				new Object[] {ticketId, "resolved"},
 				LocalDateTime.class);
 		
@@ -224,22 +224,56 @@ public class GeneralDAO {
 	
 	
 	public int createAgent(Agent agent) {
-		return jdbcTemplate.update("insert into agent () values ()");
+		return jdbcTemplate.update(
+			"insert into agent (id, name, status) values (?,?,?)",
+			agent.getId(),
+			agent.getName(),
+			agent.getActivityStatus()
+			);
 	}
 	
 	public int createTicket(Ticket ticket) {
-		return 0;
+		return jdbcTemplate.update(
+			"insert into ticket (id, title, priority, status, created_timestamp, customer_id, agent_id) values (?,?,?,?,?,?,?)",
+			ticket.getId(),
+			ticket.getTitle(),
+			ticket.getPriority(),
+			ticket.getStatus(),
+			ticket.getCreatedTimestamp(),
+			ticket.getCustomerId(),
+			ticket.getAgentId()
+		);
 	}
 	
-	public int createdResponse(Response response) {
-		return 0;
+	public int createResponse(Response response) {
+		return jdbcTemplate.update(
+			"insert into response (id, ticket_id, agent_id, customer_id, message, created_timestamp,  ticket_status, response_by_agent) values (?,?,?,?,?,?,?,?)",
+			response.getId(),
+			response.getTicketId(),
+			response.getAgentId(),
+			response.getCustomerId(),
+			response.getMessage(),
+			response.getCreatedTimestamp(),
+			response.getTicketStatus(),
+			response.getResponseByAgent()
+		);
 	}
 	
 	public int createCustomer(Customer customer) {
-		return 0;
+		return jdbcTemplate.update(
+			"insert into customer (id, name, company_name, email_id, phone_number) values (?,?,?,?,?)",
+			customer.getId(),
+			customer.getName(),
+			customer.getCompanyName(),
+			customer.getEmailId(),
+			customer.getPhoneNumber()
+		);
 	}
 	
-	public int addRating(int csatRating) {
-		return 0;
+	public int addRating(int ticketId, int csatRating) {
+		return jdbcTemplate.update("update ticket set csat_rating = ? where id = ?",
+			csatRating,
+			ticketId
+		);
 	}
 }

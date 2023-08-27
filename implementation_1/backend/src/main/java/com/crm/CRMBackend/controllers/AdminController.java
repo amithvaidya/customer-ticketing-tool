@@ -54,7 +54,8 @@ public class AdminController {
 	@PostMapping("/edit-response")
 	public ResponseEntity<Integer> editComment(
 				@RequestBody Response response
-			){
+	)
+	{
 		
 		return new ResponseEntity<>(service.editResponse(response), HttpStatus.OK);
 	}
@@ -62,7 +63,8 @@ public class AdminController {
 	@GetMapping("/responses")
 	public ResponseEntity<List<Response>> responses(
 				@RequestParam Integer ticketId
-			){
+	)
+	{
 		return new ResponseEntity<>(service.getAllResponsesForTicket(ticketId), HttpStatus.OK);
 	}
 }

@@ -16,9 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Agent {
 	
-	private String agentName;
-	private int agentId;
-	private String agentActivityStatus;	
+	private String name;
+	private int id;
+	private String activityStatus;	
 	private float avgCustomerRating;
 	private int numTicketsAssigned;
 	private String avgResponseTime;
