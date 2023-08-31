@@ -29,34 +29,41 @@ public class AgentService {
 	@Autowired
 	private GeneralDAO dao;
 	
+	@Autowired private TicketDAO ticketDAO;
+	@Autowired private AgentDAO agentDAO;
+	@Autowired private ResponseDAO responseDAO;
+	@Autowired private CustomerDAO customerDAO;
+	
 	public List<Ticket> getTickets(int agentId) {
-		return dao.getAllTicketsForAgent(agentId);
+		return ticketDAO.getAllTicketsForAgent(agentId);
 	} 
 	
+	//TODO: Method to get all responses for a ticket
 	
 	public List<Customer> getCustomers(){
-		return dao.getAllCustomers();
+		return customerDAO.getAllCustomers();
 	}
 	
 	
 	public int addResponse(Response response) {
-		return dao.createdResponse(response);
+		return responseDAO.createdResponse(response);
 	}
 	
+	//TODO: Define the following methods in DAO
 	public int editResponse(Response response) {
-		return 0;
+		return responseDAO.updateResponse(response);
 	}
 	
 	public int deleteResponse(int responseId) {
-		return 0;
+		return responseDAO.deleteResponse(responseId);
 	}
 	
 	public int addAttachmentToResponse(byte[] fileData) {
 		return 0;
 	}
 	
-	public int updateStatus(String status) {
-		return 0;
+	public int updateAgentActivityStatus(String status) {
+		return agentDAO.updateAgentActivityStatus(status);
 	}
 	
 }

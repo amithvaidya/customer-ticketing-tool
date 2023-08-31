@@ -152,7 +152,7 @@ public class GeneralDAO {
 	public List<Integer> getAllTicketsHandledByAgent(int agentId, String status){
 		List<Integer> ticketIds = jdbcTemplate.query(
 				"select id as ticket_id from tickets where agent_id = ? and status = ?", 
-				new Object[] {agentId},
+				new Object[] {agentId, status},
 				new RowMapper<Integer>() {				
 					@Override
 					public Integer mapRow(ResultSet rs, int rowNum) {
@@ -174,10 +174,14 @@ public class GeneralDAO {
 	/**
 	 * Get the count and the list of tickets resolved by an agent
 	 * */
+/*
 	public List<Integer> getTicketsByStatus(int agentId, String status){
 		return null;
 	}
 	
+*/
+	
+	//TDOD: This is a redundant method, use the above methods to get ticket by status
 	
 	/**
 	 * Get the resolved time stamp for a ticket

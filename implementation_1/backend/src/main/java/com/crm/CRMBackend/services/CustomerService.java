@@ -22,23 +22,24 @@ import com.crm.CRMBackend.models.Ticket;
 public class CustomerService {
 	
 	
-	@Autowired
-	private GeneralDAO dao;
+	@Autowired private TicketDAO ticketDAO;
+	@Autowired private ResponseDAO responseDAO;
 	
 	public List<Response> getResponses(Integer ticketId){
-		return dao.getAllResponsesForTicket(ticketId);
+		return responseDAO.getAllResponsesForTicket(ticketId);
 	}
 	
 	public List<Ticket> getTickets(int customerId){
-		return dao.getAllTicketsForCustomer(customerId);
+		return ticketDAO.getAllTicketsForCustomer(customerId);
 	}
 	
 	public int createTicket(Ticket t){
-		return dao.createTicket(t);
+		return ticketDAO.createTicket(t);
 	}
 	
+	//TODO: add method to create a response and attachments.
 	
 	public int addRatingForTicket(int rating) {
-		return dao.addRating(rating);
+		return ticketDAO.addRating(rating);
 	}
 }

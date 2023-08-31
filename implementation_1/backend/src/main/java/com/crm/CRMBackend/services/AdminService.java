@@ -30,44 +30,41 @@ import com.crm.CRMBackend.util.UtilServices;
 @Service
 public class AdminService {
 	
-	@Autowired
-	private GeneralDAO dao;
+	@Autowired private UtilServices utils;
+	@Autowired private ResponseDAO responseDAO;
+	@Autowired private AgentDAO agentDAO;
+	@Autowired private TicketDAO ticketDAO;
 	
-//	@Autowired
-//	private UtilServices util;
-//		
-	@Autowired
-	private UtilServices utils;
-	
-	
+	//TODO: Define DAO methods for the following 4 methods
 	public int addResponse(Response response) {
-		return 0;
+		return responseDAO.createResponse(response);
 	}
 	
 	public int editResponse(Response response) {
-		return 0;
+		return responseDAO.updateResponse(response);
 	}
 	
 	public List<Response> getAllResponsesForTicket(int ticketId){
-		return dao.getAllResponsesForTicket(ticketId);
+		return responseDAO.getAllResponsesForTicket(ticketId);
 	}
 	
 	public int createAgent(Agent agent) {
-		return 0;
+		return agentDAO.createAgent(agent);
 	}
 	
 	public List<Ticket> getAllTickets(){
-		return dao.getAllTickets();
+		return ticketDAO.getAllTickets();
 	}
 	
 	public List<Agent> getAgentAnalytics(){
-		return dao.getAllAgents()
+		return agentDAO.getAllAgents()
 						.stream()
+						//TODO: check the methods used in the map section
 						.map(agent -> {
 							agent.setAvgCustomerRating(getAvgCustomerRating(agent.getAgentId()));
 							agent.setAvgResponseTime(utils.timeParser(getAvgResponseTime(agent.getAgentId())));
 							agent.setAvgResolutionTime(utils.timeParser(getAvgResolutionTime(agent.getAgentId())));
-							agent.setNumTicketsAssigned(dao.numOfTicketsForAgent(agent.getAgentId()));
+							agent.setNumTicketsAssigned(ticketDAO.numOfTicketsForAgent(agent.getAgentId()));
 							return agent;
 						})
 						.toList();
@@ -76,11 +73,10 @@ public class AdminService {
 	
 	public Float getAvgCustomerRating(int agentId) {
 		float rating = 0.0f;
-		List<Float> ratings = dao.getCSATForAgent(agentId);
+		List<Float> ratings = dao.getCSATForAgent(agentId).stream().filter(rating -> rating > -1.0f).tolist();
 		int totalCount = ratings.size();
 		float totalRating = ratings.stream().reduce((prevRating, nextRating) -> (prevRating+nextRating)).get();
-		rating = totalRating/totalCount;
-		
+		rating = (totalCount>0)?(totalRating/totalCount):(-1.0f);
 		return rating;
 	}
 	
@@ -95,16 +91,16 @@ public class AdminService {
 	
 	public long getAvgResolutionTime(int agentId) {
 		long avgResolutionTime=0;		
-		List<Integer> ticketIds = dao.getAllTicketsHandledByAgent(agentId, "resolved");
+		List<Integer> ticketIds = ticketDAO.getAllTicketsHandledByAgent(agentId, "resolved");
 		
 		long numOfTickets = ticketIds.size();
 		long totalTime = ticketIds.stream()
 			.map((ticketId) -> Duration.between(
 								//Ticket Created time
-								dao.getTicketResolvedTImestamp(ticketId),
+								ticketDAO.getTicketCreatedTime(ticketId),
 								
 								//Ticket resolved time
-								dao.getTicketResolvedTImestamp(ticketId))
+								responseDAO.getTicketResolvedTImestamp(ticketId))
 					.getSeconds())
 			.reduce((t1, t2) -> t1+t2).get();
 		
@@ -124,33 +120,42 @@ public class AdminService {
 	
 	public long getAvgResponseTime(int agentId) {
 		
-		long avgRespTime = 0;
-		long duration = 0;
-		List<Ticket> tickets = dao.getAllTicketsForAgent(agentId);
+		long avgRespTime = 0L;
+		long duration = 0L;
+		List<Ticket> tickets = ticketDAO.getAllTicketsForAgent(agentId);
 		long count = tickets.size();
 		
 		// For each ticket, find the avg response time
-		 for(Ticket ticket: tickets) {
+		
+		//TODO: Change this iteration using stream API
+		/* for(Ticket ticket: tickets) {
 			duration+=avgResponseTimeForTicket(ticket.getId());
 		 }
-		
-		
-		avgRespTime = duration / count;
+		 */
+		 
+		duration = tickets.stream().map(ticket -> avgResponseTimeForTicket(ticket.getId())).reduce((t1, t2) -> t1+t2).get();
+		avgRespTime =  (count > 0)?(duration / count):-1L;
 		return avgRespTime;
 	}
 	
 	
+	//TODO: Test this method with different scenarios of response timestamps
 	public long avgResponseTimeForTicket(int ticketId) {
 		
-		List<LocalDateTime> agentResponseTS = dao.getTimestampsOfResponses(ticketId, true, true);
-		List<LocalDateTime> customerResponseTS = dao.getTimestampsOfResponses(ticketId, false, true);
-		int count = customerResponseTS.size();
+		List<LocalDateTime> agentResponseTS = responseDAO.getTimestampsOfResponses(ticketId, true, true);
+		List<LocalDateTime> customerResponseTS = responseDAO.getTimestampsOfResponses(ticketId, false, true);
+
+		int custRespCount = customerResponseTS.size();
+		int agentRespCount = agentResponseTS.size();
 		long duration=0;
 		int jumpToIndex=0;
 		
-		for(int i=0; i<customerResponseTS.size(); i++) {
+		//This can be implemented using Stream API
+		for(int i=0; i<custRespCount; i++) {
+			
 			LocalDateTime custResp = customerResponseTS.get(i);
-			loop: for(int j=jumpToIndex; j<agentResponseTS.size(); j++) {
+			
+			loop: for(int j=jumpToIndex; j<agentRespCount; j++) {
 				LocalDateTime agentResp = agentResponseTS.get(j);
 				if(agentResp.isAfter(custResp) || agentResp.isEqual(custResp)) {
 					duration+=(Duration.between(custResp, agentResp).getSeconds());
@@ -160,8 +165,8 @@ public class AdminService {
 			}
 		}
 		
-		if(customerResponseTS.size()>0) return ( duration / count);
-		else return -1;
+		return (custRespCount>0)?( duration / count):-1L;
+		
 	}	
 		
 	
