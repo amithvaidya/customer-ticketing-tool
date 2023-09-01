@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Customer } from './Customer';
+import { Customer } from '../../models/Customer';
+import { AdminServiceService } from '../admin-service.service';
 
 @Component({
   selector: 'app-customers-view',
@@ -7,33 +8,14 @@ import { Customer } from './Customer';
   styleUrls: ['./customers-view.component.css']
 })
 export class CustomersViewComponent {
-  customers: Customer[] = [
-    {
-      id: 1,
-      name: "Rakesh",
-      companyName: "Reliance",
-      priority: 1,
-      numOfTickets: 10,
-      satisfactionRating: 3.5,
-      agentPOC: "Amith"
-    },
-    {
-      id: 1,
-      name: "Rakesh",
-      companyName: "Reliance",
-      priority: 1,
-      numOfTickets: 10,
-      satisfactionRating: 3.5,
-      agentPOC: "Amith"
-    },
-    {
-      id: 1,
-      name: "Rakesh",
-      companyName: "Reliance",
-      priority: 1,
-      numOfTickets: 10,
-      satisfactionRating: 3.5,
-      agentPOC: "Amith"
-    }
-  ];
+  customers: Customer[] = [];
+
+  // customers: Customer[] = [];
+  // constructor(private service: AdminServiceService){}
+  // ngOnInit(): void {
+  //     console.log('Tickets view is initiated.');
+  //     this.service.getAllTickets().subscribe(data => this.customers = data);
+  //     console.log(this.tickets);
+  //     // this.ticketsViewLoadEvent.emit(this.ticketViewFlag);
+  // }
 }

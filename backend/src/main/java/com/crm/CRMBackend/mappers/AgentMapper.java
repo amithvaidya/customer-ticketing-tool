@@ -13,7 +13,7 @@ public class AgentMapper implements RowMapper<Agent>{
 		Agent agent = new Agent();
 		agent.setId(rs.getInt("id"));
 		agent.setName(rs.getString("name"));
-		agent.setActivityStatus(rs.getString("activity_status"));
+		agent.setActivityStatus(rs.getString("status"));
 		return agent;
 	}
 }

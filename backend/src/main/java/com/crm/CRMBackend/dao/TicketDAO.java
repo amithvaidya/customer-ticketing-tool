@@ -29,6 +29,13 @@ public class TicketDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public Integer numOfTicketsResolvedByAgent(int agentId){
+		return jdbcTemplate.queryForObject("select count(*) from tickets where status=? and agent_id=?",
+			new Object[]{"resolved", agentId},
+			Integer.class
+		);
+	}
+
 	public LocalDateTime getTicketCreatedTimestamp(int ticketId){
 		return jdbcTemplate.queryForObject("select created_timestamp from tickets where id=?", new Object[]{ticketId}, LocalDateTime.class);
 	}

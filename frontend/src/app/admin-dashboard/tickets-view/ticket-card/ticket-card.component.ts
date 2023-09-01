@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ticket } from '../Ticket';
+import { Ticket } from '../../../models/Ticket';
 
 @Component({
   selector: 'app-ticket-card',
@@ -10,10 +10,11 @@ export class TicketCardComponent {
   @Input() ticket: Ticket = {
     id: 0,
     title: "",
-    handledBy: "",
-    createdDate: "",
+    agentId: 0,
+    customerId: 0,
+    createdTimestamp: "",
     status: "",
-    priority: ""
+    priority: 0
   };
   
 }

@@ -70,12 +70,13 @@ public class AdminService {
 							agent.setAvgResponseTime(utils.timeParser(getAvgResponseTime(agent.getId())));
 							agent.setAvgResolutionTime(utils.timeParser(getAvgResolutionTime(agent.getId())));
 							agent.setNumTicketsAssigned(ticketDAO.numOfTicketsForAgent(agent.getId()));
+							agent.setNumTicketsResolved(ticketDAO.numOfTicketsResolvedByAgent(agent.getId()));
 							return agent;
 						})
 						.collect(Collectors.toList());
 	}
 	
-	
+
 	public Float getAvgCustomerRating(int agentId) {
 		float rating = 0.0f;
 		List<Float> ratings = ticketDAO.getCSATForAgent(agentId).stream().filter(tempRating -> tempRating > -1.0f)

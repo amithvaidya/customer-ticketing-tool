@@ -17,26 +17,12 @@
                     <th class="text-center">Average Response Time</th>
                     <th class="text-center">Average Resolution Time</th>
                 </tr>
-                <tr>
-                    <td  class="text-center">Amith</td>
-                    <td  class="text-center">20</td>
-                    <td  class="text-center">15</td>
-                    <td  class="text-center">1h 5m</td>
-                    <td  class="text-center">1h 5m</td>
-                </tr>
-                <tr>
-                    <td  class="text-center">Amith</td>
-                    <td  class="text-center">20</td>
-                    <td  class="text-center">15</td>
-                    <td  class="text-center">1h 5m</td>
-                    <td  class="text-center">1h 5m</td>
-                </tr>                
-                <tr>
-                    <td  class="text-center">Amith</td>
-                    <td  class="text-center">20</td>
-                    <td  class="text-center">15</td>
-                    <td  class="text-center">1h 5m</td>
-                    <td  class="text-center">1h 5m</td>
+                <tr *ngFor="let agent of agents">
+                    <td  class="text-center">{{agent.name}}</td>
+                    <td  class="text-center">{{agent.numTicketsAssigned}}</td>
+                    <td  class="text-center">{{agent.numTicketsResolved}}</td>
+                    <td  class="text-center">{{agent.avgResponseTime}}</td>
+                    <td  class="text-center">{{agent.avgResolutionTime}}</td>
                 </tr>
             </table>
         </div>

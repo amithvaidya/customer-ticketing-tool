@@ -21,6 +21,7 @@ public class Agent {
 	private String activityStatus;	
 	private float avgCustomerRating;
 	private int numTicketsAssigned;
+	private int numTicketsResolved;
 	private String avgResponseTime;
 	private String avgResolutionTime;
 //	private List<Ticket> tickets;

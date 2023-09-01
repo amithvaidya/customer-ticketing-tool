@@ -19,6 +19,7 @@ import { CustomerCardComponent } from './admin-dashboard/customers-view/customer
 import { TicketResponsesComponent } from './admin-dashboard/ticket-individual-view/ticket-responses/ticket-responses.component';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { CreateTicketComponent } from './customer-dashboard/create-ticket/create-ticket.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CreateTicketComponent } from './customer-dashboard/create-ticket/create
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

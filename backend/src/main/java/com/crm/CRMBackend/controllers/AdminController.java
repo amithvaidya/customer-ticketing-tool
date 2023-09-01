@@ -2,6 +2,8 @@ package com.crm.CRMBackend.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,8 +32,10 @@ public class AdminController {
 	private AdminService service;
 	
 	@GetMapping("/hello")
-	public ResponseEntity<String> sayHello(){
-		return new ResponseEntity<>("Hey!", HttpStatus.OK);
+	public ResponseEntity<Map<String, String>> sayHello(){
+		Map<String, String> m = new HashMap<>();
+		m.put("message", "Hello World!");
+		return new ResponseEntity<>(m, HttpStatus.OK);
 	}
 	
 	@GetMapping("/agents")

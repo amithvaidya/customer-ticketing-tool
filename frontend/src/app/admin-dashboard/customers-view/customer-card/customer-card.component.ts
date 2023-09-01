@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Customer } from '../Customer';
+import { Customer } from '../../../models/Customer';
 
 @Component({
   selector: 'app-customer-card',
@@ -12,9 +12,8 @@ export class CustomerCardComponent {
     name: "",
     companyName: "",
     numOfTickets: 0,
-    priority: 0,
-    satisfactionRating: 0,
-    agentPOC: ""
+    csatRating: 0,
+    agentId: 0
   };
 
   showClientDetailsFlag: boolean = false;
