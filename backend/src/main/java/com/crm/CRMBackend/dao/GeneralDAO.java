@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -17,6 +21,7 @@ import com.crm.CRMBackend.models.Customer;
 import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 
+@Component
 public class GeneralDAO {
 	
 	@Autowired
@@ -40,7 +45,7 @@ public class GeneralDAO {
 							resp.setMessage(rs.getString("message"));
 							resp.setTicketId(rs.getInt("ticket_id"));
 							resp.setTicketStatus(rs.getString("ticket_status"));
-							resp.setCreatedTime(rs.getTimestamp("created_timestamp").toLocalDateTime());
+							resp.setCreatedTimestamp(rs.getTimestamp("created_timestamp").toLocalDateTime());
 							resp.setResponseByAgent(rs.getBoolean("response_by_agent"));
 							resp.setAgentId(rs.getInt("agent_id"));
 							resp.setCustomerId(rs.getInt("customer_id"));
@@ -258,8 +263,8 @@ public class GeneralDAO {
 			response.getCustomerId(),
 			response.getMessage(),
 			response.getCreatedTimestamp(),
-			response.getTicketStatus(),
-			response.getResponseByAgent()
+			response.getTicketStatus()
+		//	response.getResponseByAgent()
 		);
 	}
 	
@@ -270,7 +275,7 @@ public class GeneralDAO {
 			customer.getName(),
 			customer.getCompanyName(),
 			customer.getEmailId(),
-			customer.getPhoneNumber()
+			customer.getPhone()
 		);
 	}
 	

@@ -22,7 +22,7 @@ public class Response {
 	private int ticketId;
 	private String message;
 	private String ticketStatus;
-	private LocalDateTime createdTime;
-	private boolean responseByAgent;
+	private LocalDateTime createdTimestamp;
+	private Boolean responseByAgent;
 	
 }

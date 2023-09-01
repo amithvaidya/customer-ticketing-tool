@@ -14,17 +14,14 @@ public class TicketMapper implements RowMapper<Ticket>{
 	public Ticket mapRow(ResultSet rs, int rowNum) throws SQLException{
 		Ticket ticket = new Ticket();
 		
-		ticket.setId(rs.getInt(TableColumns.Ticket.AGENT_ID));
-//		ticket.setDescription(TableColumns.Ticket.DESCRIPTION);
-//		ticket.setStatus(rs.getString("status"));
-		ticket.setCreatedTimestamp(
-				LocalDateTime.of(
-				rs.getDate("created_time").toLocalDate(),
-				rs.getTime("created_time").toLocalTime()
-			)
-		);
+		ticket.setId(rs.getInt("id"));
+		ticket.setStatus(rs.getString("status"));
+		ticket.setCreatedTimestamp(rs.getTimestamp("created_timestamp").toLocalDateTime());
 		ticket.setTitle(rs.getString("title"));
 		ticket.setAgentId(rs.getInt("agent_id"));
+		ticket.setPriority(rs.getInt("priority"));
+		ticket.setCustomerId(rs.getInt("customer_id"));
+		ticket.setCsatRating(rs.getInt("csat_rating"));
 		return ticket;
 	}
 }

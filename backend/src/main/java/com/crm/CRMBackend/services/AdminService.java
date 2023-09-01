@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,11 @@ import com.crm.CRMBackend.models.Agent;
 import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
 import com.crm.CRMBackend.util.UtilServices;
+
+import com.crm.CRMBackend.dao.TicketDAO;
+import com.crm.CRMBackend.dao.AgentDAO;
+import com.crm.CRMBackend.dao.ResponseDAO;
+
 
 @Service
 public class AdminService {
@@ -61,21 +66,27 @@ public class AdminService {
 						.stream()
 						//TODO: check the methods used in the map section
 						.map(agent -> {
-							agent.setAvgCustomerRating(getAvgCustomerRating(agent.getAgentId()));
-							agent.setAvgResponseTime(utils.timeParser(getAvgResponseTime(agent.getAgentId())));
-							agent.setAvgResolutionTime(utils.timeParser(getAvgResolutionTime(agent.getAgentId())));
-							agent.setNumTicketsAssigned(ticketDAO.numOfTicketsForAgent(agent.getAgentId()));
+							agent.setAvgCustomerRating(getAvgCustomerRating(agent.getId()));
+							agent.setAvgResponseTime(utils.timeParser(getAvgResponseTime(agent.getId())));
+							agent.setAvgResolutionTime(utils.timeParser(getAvgResolutionTime(agent.getId())));
+							agent.setNumTicketsAssigned(ticketDAO.numOfTicketsForAgent(agent.getId()));
 							return agent;
 						})
-						.toList();
+						.collect(Collectors.toList());
 	}
 	
 	
 	public Float getAvgCustomerRating(int agentId) {
 		float rating = 0.0f;
-		List<Float> ratings = dao.getCSATForAgent(agentId).stream().filter(rating -> rating > -1.0f).tolist();
+		List<Float> ratings = ticketDAO.getCSATForAgent(agentId).stream().filter(tempRating -> tempRating > -1.0f)
+								.collect(Collectors.toList());
 		int totalCount = ratings.size();
-		float totalRating = ratings.stream().reduce((prevRating, nextRating) -> (prevRating+nextRating)).get();
+		float totalRating = 0.0f;
+		
+		for(Float rate: ratings){
+			totalRating += rate;
+		}
+		
 		rating = (totalCount>0)?(totalRating/totalCount):(-1.0f);
 		return rating;
 	}
@@ -94,17 +105,26 @@ public class AdminService {
 		List<Integer> ticketIds = ticketDAO.getAllTicketsHandledByAgent(agentId, "resolved");
 		
 		long numOfTickets = ticketIds.size();
-		long totalTime = ticketIds.stream()
-			.map((ticketId) -> Duration.between(
+		long totalTime = 0L; /*ticketIds.stream()
+			.map((ticketId) -> Math.abs(Duration.between(
 								//Ticket Created time
-								ticketDAO.getTicketCreatedTime(ticketId),
+								ticketDAO.getTicketCreatedTimestamp(ticketId),
 								
 								//Ticket resolved time
-								responseDAO.getTicketResolvedTImestamp(ticketId))
-					.getSeconds())
+								responseDAO.getTicketResolvedTimestamp(ticketId))
+					.getSeconds()))
 			.reduce((t1, t2) -> t1+t2).get();
+			*/
+		for(int ticketId: ticketIds){
+			totalTime += 
+				Duration.between(
+					ticketDAO.getTicketCreatedTimestamp(ticketId),
+					responseDAO.getTicketResolvedTimestamp(ticketId)
+					).getSeconds(); 
+		}
 		
-		avgResolutionTime = totalTime / numOfTickets;
+		if (numOfTickets>0)avgResolutionTime = totalTime / numOfTickets;
+		else avgResolutionTime = -1L;
 		
 		return avgResolutionTime;
 	}
@@ -128,12 +148,12 @@ public class AdminService {
 		// For each ticket, find the avg response time
 		
 		//TODO: Change this iteration using stream API
-		/* for(Ticket ticket: tickets) {
+		for(Ticket ticket: tickets) {
 			duration+=avgResponseTimeForTicket(ticket.getId());
 		 }
-		 */
 		 
-		duration = tickets.stream().map(ticket -> avgResponseTimeForTicket(ticket.getId())).reduce((t1, t2) -> t1+t2).get();
+		 
+//		duration = tickets.stream().map(ticket -> avgResponseTimeForTicket(ticket.getId())).reduce((t1, t2) -> t1+t2).get();
 		avgRespTime =  (count > 0)?(duration / count):-1L;
 		return avgRespTime;
 	}
@@ -165,7 +185,7 @@ public class AdminService {
 			}
 		}
 		
-		return (custRespCount>0)?( duration / count):-1L;
+		return (custRespCount>0)?( duration / custRespCount):-1L;
 		
 	}	
 		

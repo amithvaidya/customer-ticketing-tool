@@ -15,8 +15,15 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Service;
 
 import com.crm.CRMBackend.dao.GeneralDAO;
+import com.crm.CRMBackend.dao.TicketDAO;
+import com.crm.CRMBackend.dao.AgentDAO;
+import com.crm.CRMBackend.dao.ResponseDAO;
+
+
 import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
+
+
 
 @Service
 public class CustomerService {
@@ -39,7 +46,7 @@ public class CustomerService {
 	
 	//TODO: add method to create a response and attachments.
 	
-	public int addRatingForTicket(int rating) {
-		return ticketDAO.addRating(rating);
+	public int addRatingForTicket(int ticketId, int rating) {
+		return ticketDAO.addRating(ticketId, rating);
 	}
 }

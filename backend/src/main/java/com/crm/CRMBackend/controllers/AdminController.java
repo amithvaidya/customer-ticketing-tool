@@ -29,6 +29,11 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	
+	@GetMapping("/hello")
+	public ResponseEntity<String> sayHello(){
+		return new ResponseEntity<>("Hey!", HttpStatus.OK);
+	}
+	
 	@GetMapping("/agents")
 	public ResponseEntity<List<Agent>> agents(){
 		return new ResponseEntity<>(service.getAgentAnalytics(), HttpStatus.OK);
@@ -50,7 +55,7 @@ public class AdminController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	
+	//TODO: This has some errors while running
 	@PostMapping("/edit-response")
 	public ResponseEntity<Integer> editComment(
 				@RequestBody Response response

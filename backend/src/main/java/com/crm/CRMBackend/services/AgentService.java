@@ -18,6 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.crm.CRMBackend.dao.GeneralDAO;
+import com.crm.CRMBackend.dao.TicketDAO;
+import com.crm.CRMBackend.dao.AgentDAO;
+import com.crm.CRMBackend.dao.ResponseDAO;
+import com.crm.CRMBackend.dao.CustomerDAO;
+
+
 import com.crm.CRMBackend.models.Customer;
 import com.crm.CRMBackend.models.Response;
 import com.crm.CRMBackend.models.Ticket;
@@ -46,7 +52,7 @@ public class AgentService {
 	
 	
 	public int addResponse(Response response) {
-		return responseDAO.createdResponse(response);
+		return responseDAO.createResponse(response);
 	}
 	
 	//TODO: Define the following methods in DAO
@@ -54,16 +60,20 @@ public class AgentService {
 		return responseDAO.updateResponse(response);
 	}
 	
+	/*
+	TODO: Implement DAO for this method
 	public int deleteResponse(int responseId) {
 		return responseDAO.deleteResponse(responseId);
-	}
+	} */
 	
 	public int addAttachmentToResponse(byte[] fileData) {
 		return 0;
 	}
-	
+	/*
+	TODO: Implement DAO for this method
 	public int updateAgentActivityStatus(String status) {
 		return agentDAO.updateAgentActivityStatus(status);
 	}
+	*/
 	
 }

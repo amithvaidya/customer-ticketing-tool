@@ -24,6 +24,7 @@ import com.crm.CRMBackend.services.AgentService;
 @RestController
 @RequestMapping("/agent")
 public class AgentController {
+
 	
 	@Autowired
 	private AgentService agentService;
@@ -31,45 +32,22 @@ public class AgentController {
 	
 	
 	@GetMapping("/tickets")
-	public ResponseEntity<List<Ticket>> ticekts(
-			@RequestParam(required = false) Integer ticketId,
-			@RequestParam(required = false) Integer agentId,
-			@RequestParam(required = false) String title,
-			@RequestParam(required = false) String status
-	){
-		
-		Map<String, Object> param = Map.of(
-					"agent_id", agentId,
-					"id", ticketId,
-					"title", title,
-					"status", status
-				);
-		
-		return new ResponseEntity<>(agentService.getTickets(param), HttpStatus.OK);
+	public ResponseEntity<List<Ticket>> ticekts(@RequestParam int agentId){		
+		return new ResponseEntity<>(agentService.getTickets(agentId), HttpStatus.OK);
 	}
 	
 	
 	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> customers(
-			@RequestParam(required = false) String customerName,
-			@RequestParam(required = false) String company,
-			@RequestParam(required = false) Integer customerId
-			
-	){
-		Map<String, Object> params = Map.of(
-				"name", customerName,
-				"company", company,
-				"id", customerId
-			);
-		return new ResponseEntity<>(agentService.getCustomers(params), HttpStatus.OK);
+	public ResponseEntity<List<Customer>> getCustomers(){
+		return new ResponseEntity<>(agentService.getCustomers(), HttpStatus.OK);
 	}
 	
 	
 	@PostMapping("/add-response")
-	public ResponseEntity<Map<String, Object>> addResponse(@RequestBody Response response){
-		String message = agentService.addResponse(response)?"Response added successfully.":"Unable to add response.";
-		return new ResponseEntity<>(Map.of("message", message), HttpStatus.OK);
+	public ResponseEntity<String> addResponse(@RequestBody Response response){
+		agentService.addResponse(response);
+		return new ResponseEntity<>("Response added.", HttpStatus.OK);
 	}
-	
-	
+
 }
+ 

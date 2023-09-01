@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,6 +23,7 @@ import com.crm.CRMBackend.models.Ticket;
 
 //TODO: complete the imports
 
+@Component
 public class AgentDAO {
 	
 	@Autowired
@@ -28,7 +32,7 @@ public class AgentDAO {
 	
 	public int createAgent(Agent agent) {
 		return jdbcTemplate.update(
-			"insert into agent (id, name, status) values (?,?,?)",
+			"insert into agents (id, name, status) values (?,?,?)",
 			agent.getId(),
 			agent.getName(),
 			agent.getActivityStatus()
@@ -36,7 +40,7 @@ public class AgentDAO {
 	}
 	
 	public List<Integer> getAllAgentIds(){
-		List<Integer> agentIds = jdbcTemplate.query("select id as agentId, name as agentName from agents", new RowMapper<Integer>() {
+		List<Integer> agentIds = jdbcTemplate.query("select id from agents", new RowMapper<Integer>() {
 			@Override
 			public Integer mapRow(ResultSet rs, int rowNum) {
 				try {
@@ -51,7 +55,7 @@ public class AgentDAO {
 	}
 	
 	public List<Agent> getAllAgents(){
-		return jdbcTemplate.query("select * from agent", new AgentMapper());
+		return jdbcTemplate.query("select * from agents", new AgentMapper());
 	}
 	
 	

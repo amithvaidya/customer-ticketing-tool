@@ -11,9 +11,9 @@ public class AgentMapper implements RowMapper<Agent>{
 	
 	public Agent mapRow(ResultSet rs, int rowNum) throws SQLException{
 		Agent agent = new Agent();
-		agent.setAgentId(rs.getInt("agent_id"));
-		agent.setAgentName(rs.getString("agent_name"));
-		agent.setAvgCustomerRating(rs.getFloat("customer_rating"));
+		agent.setId(rs.getInt("id"));
+		agent.setName(rs.getString("name"));
+		agent.setActivityStatus(rs.getString("activity_status"));
 		return agent;
 	}
 }

@@ -39,15 +39,15 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/create-ticket")
-	public ResponseEntity<Map<String, Object>> raiseTicket(@RequestBody Ticket ticket){	
+	public ResponseEntity<String> raiseTicket(@RequestBody Ticket ticket){	
 		customerService.createTicket(ticket);
-		return new ResponseEntity<>(Map.of("message", "Ticket has been created successfully."), HttpStatus.OK);
+		return new ResponseEntity<>("Ticket has been created successfully.", HttpStatus.OK);
 	}
 	
 	@GetMapping("/rate-ticket")
-	public ResponseEntity<Map<String, Object>> rateService(@RequestParam Integer ticketId, @RequestParam Integer rating){	
-		customerService.addRating(ticketId, rating);
-		return new ResponseEntity<>(Map.of("message", "Ticket rating is updated successfully."), HttpStatus.OK);
+	public ResponseEntity<String> rateService(@RequestParam Integer ticketId, @RequestParam Integer rating){	
+		customerService.addRatingForTicket(ticketId, rating);
+		return new ResponseEntity<>("Ticket rating is updated successfully.", HttpStatus.OK);
 	}
 	
 	@GetMapping("/responses")

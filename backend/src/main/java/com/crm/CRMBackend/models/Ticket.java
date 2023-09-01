@@ -26,6 +26,6 @@ public class Ticket {
 	private int customerId;
 	private int priority;
 	private float csatRating;
-	private List<Response> responses;
+//	private List<Response> responses;
 	
 }

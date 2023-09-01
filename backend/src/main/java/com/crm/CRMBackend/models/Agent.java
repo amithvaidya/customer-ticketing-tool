@@ -23,5 +23,5 @@ public class Agent {
 	private int numTicketsAssigned;
 	private String avgResponseTime;
 	private String avgResolutionTime;
-	private List<Ticket> tickets;
+//	private List<Ticket> tickets;
 }
