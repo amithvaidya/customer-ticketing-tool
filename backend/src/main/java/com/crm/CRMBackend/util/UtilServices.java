@@ -14,19 +14,20 @@ public class UtilServices {
 		if(time > 86400) {
 			days = time / 86400;
 			time %= 86400;
-			ret+= days+"d, ";
+			ret+= days+"d";
 		}
 		if(time > 3600) {
 			hours = time/3600;
 			time %= 3600;
-			ret += hours+"h, ";
+			ret += ", "+hours+"h, ";
 		}
 		if(time > 60) {
 			mins = time / 60;
 			time %= 60;
-			ret += mins +"m, ";
+			ret += ", "+mins +"m";
 		}
-		ret += time+"s";
+		if(time > 0) ret += ", "+time+"s";
+
 		return ret;
 	}
 	

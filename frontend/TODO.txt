@@ -1,0 +1,12 @@
+
+TODO list
+
+- Integrate backend API with frontend for Tickets Individual View
+- For agent-details-table, update -1s to NA
+- Update the graphs for agent analytics, by integrating with backend. And correct the axis values
+- For all components, move the CSS styles to individual CSS files
+
+- Create component to create tickets and integrate with backend API. 
+  This will be used for Agent and Customer dashboards.
+
+- In the ticket individual view component, integrate the response input with backend API

@@ -23,9 +23,14 @@ public class Ticket {
 	private String status;
 	private LocalDateTime createdTimestamp;
 	private int agentId;
+	private String agentName;
+
 	private int customerId;
+	private String customerName;
+	private String companyName;
+
 	private int priority;
-	private float csatRating;
-//	private List<Response> responses;
-	
+	private String priorityLabel;
+
+	private float csatRating;	
 }

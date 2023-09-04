@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdminServiceService } from './admin-service.service';
+import { Agent } from '../models/Agent';
+import { Ticket } from '../models/Ticket';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,6 +10,8 @@ import { Component } from '@angular/core';
 })
 export class AdminDashboardComponent{
   
+
+
   ticketClass: string = '';
   agentClass: string = '';
   customerClass: string = '';
@@ -36,5 +41,7 @@ export class AdminDashboardComponent{
       this.customerClass = 'default';
     }
   }
+
+
 
 }

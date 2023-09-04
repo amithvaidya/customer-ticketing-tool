@@ -10,10 +10,10 @@
     </div>
     <div class="row py-3">
         <div class="col-2 ticket-desc-tag">
-            <i class="bi bi-person-circle text-primary"></i>{{this.ticket.customerId}}
+            <i class="bi bi-person-circle text-primary"></i>{{this.ticket.customerName}} - {{this.ticket.companyName}}
         </div>
         <div class="col-3 ticket-desc-tag">
-            <i class="bi bi-calendar-event text-primary"></i>Created On: {{this.ticket.createdTimestamp}}
+            <i class="bi bi-calendar-event text-primary"></i>{{this.ticket.createdTimestamp}}
         </div>
         <div class="col ticket-desc-tag">
             <i *ngIf="this.ticket.status == 'pending'" style="font-size: 16px; font-weight:bolder;" class="bi bi-exclamation-circle text-warning"></i>
@@ -23,11 +23,11 @@
         </div>
         <div class="col ticket-desc-tag">
             <i class="bi bi-square-fill" [ngClass]="this.ticket.priority==1?'text-danger':(this.ticket.priority==2?'text-warning':'text-success')"></i>
-            Priority: {{this.ticket.priority}}
+            {{this.ticket.priorityLabel}}
         </div>
         <div class="col h-25 ticket-desc-tag">
             <i class="bi bi-person-circle text-success"></i>
-            Handled By: {{this.ticket.agentId}}
+            {{this.ticket.agentName}}
         </div>
     </div>
 </div>

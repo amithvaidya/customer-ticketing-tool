@@ -1,0 +1,8 @@
+
+- Isolate the SQL queries from code to a seperate file
+- Make a standard list of tables and columns and used this constant/enum in the code
+- Optimize the SQL queries and remove redundant code
+- The Time Parser method is not giving the right output, check and fix it.
+- Test the method avgResponseTimeForTicket(int ticketId) with different timestamps of customer and agents response.
+- Create a table to add attachment files, and write SQL query and API to CRUD
+- Dump all SQL queries into 1 file

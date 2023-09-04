@@ -11,10 +11,14 @@ export class TicketCardComponent {
     id: 0,
     title: "",
     agentId: 0,
+    agentName: "",
     customerId: 0,
+    customerName: "",
+    companyName: "",
     createdTimestamp: "",
     status: "",
-    priority: 0
+    priority: 0,
+    priorityLabel: ""
   };
   
 }

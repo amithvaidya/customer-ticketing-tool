@@ -2,9 +2,13 @@
 export interface Ticket {
     id: number,
     title: string,
-    agentId: number,
-    customerId: number,
+    agentId: number, // not required
+    agentName: string,
+    customerId: number, //Not required
+    customerName: string,
+    companyName: string
     createdTimestamp: string,
     status: string,
-    priority: number
+    priority: number,
+    priorityLabel: string
 }

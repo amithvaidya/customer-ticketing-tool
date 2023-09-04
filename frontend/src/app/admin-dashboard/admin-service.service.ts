@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParamsOptions } from '@angular/common/http'
 import { Ticket } from '../models/Ticket';
 import { Agent } from '../models/Agent';
+import { Response } from '../models/Response';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,8 +26,8 @@ export class AdminServiceService {
     return this.httpClient.get<Agent[]>(this.getAgentsUrl, this.httpOptions);
   }
 
-  getResponsesToTicket(ticketId: number){
-    return this.httpClient.get<Response[]>(this.getAgentsUrl+ticketId, this.httpOptions);
+  getResponsesToTicket(ticketId: string|null){
+    return this.httpClient.get<Response[]>(this.getResponseUrl+ticketId, this.httpOptions);
   }
 
 

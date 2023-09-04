@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,7 +46,39 @@ public class TicketDAO {
 	}
 	
 	public List<Ticket> getAllTickets(){
-		return jdbcTemplate.query("select * from tickets", new TicketMapper());
+		String query = "\nselect * from \n	(select * from\n		(select\n			id as ticket_id,\n			title,\n			created_timestamp,\n			agent_id,\n			customer_id,\n			csat_rating,\n			priority,\n			status as ticket_status\n		from tickets) as t1\n		left join \n			(select id, name as agent_name from agents) as t2 on t1.agent_id = t2.id) as t3\n        left join ( select id, customer_name as customer_name, company_name from customers) as t4 on t3.customer_id = t4.id\n ";
+		return jdbcTemplate.query(query, new RowMapper<Ticket>(){
+
+			@Override
+			public Ticket mapRow(ResultSet rs, int rowNum){
+				Ticket t = new Ticket();
+				try {
+				t.setId(rs.getInt("id"));
+				t.setTitle(rs.getString("title"));
+				t.setAgentName(rs.getString("agent_name"));
+				t.setAgentId(rs.getInt("agent_id"));
+				t.setCustomerName(rs.getString("customer_name"));
+				t.setCustomerId(rs.getInt("customer_id"));
+				t.setCompanyName(rs.getString("company_name"));
+				t.setCreatedTimestamp(rs.getTimestamp("created_timestamp").toLocalDateTime());
+				t.setStatus(rs.getString("ticket_status"));
+				t.setPriority(rs.getInt("priority"));
+				t.setCsatRating(rs.getInt("csat_rating"));
+				}catch(SQLException sqle){
+					sqle.printStackTrace();
+				}
+				return t;
+			}
+		})
+		.stream()
+		.map(ticket -> {
+			int p = ticket.getPriority();
+			if(p == 1) ticket.setPriorityLabel("High");
+			if(p == 2) ticket.setPriorityLabel("Medium");
+			if(p == 3) ticket.setPriorityLabel("Low");
+			return ticket;
+		})
+		.collect(Collectors.toList());
 	}
 
 	public List<Ticket> getAllTicketsForAgent(int agentId){

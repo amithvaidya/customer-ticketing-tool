@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AdminServiceService } from '../admin-service.service';
+import { Response } from 'src/app/models/Response';
 
 @Component({
   selector: 'app-ticket-individual-view',
@@ -9,12 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 export class TicketIndividualViewComponent implements OnInit{
 
 
-  constructor(private route: ActivatedRoute){}
-
+  constructor(private route: ActivatedRoute, private apiService: AdminServiceService){}
+  responses: Response[] = [];
+  private ticketId: string | null= "";
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      var id = params.get('id');
-      console.log(id);
+      this.ticketId = params.get("id");
+      this.apiService.getResponsesToTicket(this.ticketId).subscribe(data => {
+        this.responses = data;
+      });      
     });
+    
   }
+
 }
