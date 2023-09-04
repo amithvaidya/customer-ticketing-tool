@@ -1,5 +1,5 @@
 
-<div style="width: 100%; height: 10%; background-color: rgb(0, 2, 110);">
+<div class="agent-dashboard-header">
     <div class="container-fluid">
         <div class="row">
             <div class="col px-5 py-3">
@@ -17,23 +17,9 @@
 </div>
 
 
-<div style="width: 100%; height: 90%;">
-
-
-    <div style="
-        float:left;
-        /* display: inline-block;  */
-        width: 10%; 
-        height: 100%; 
-        background-color: whitesmoke;
-        ">
-    </div>
-
-    <div style="
-    float: left;
-    overflow-y: scroll;
-    width: 90%; height: 100%;">
+<div class="agent-dashboard-body">
+    <div class="left-panel"></div>
+    <div class="center-panel">
         <router-outlet></router-outlet>
     </div>
-    
 </div>
