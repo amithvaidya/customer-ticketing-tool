@@ -15,6 +15,7 @@ export class AdminServiceService {
   private getTicketsUrl =  this.baseUrl+'/tickets';
   private getAgentsUrl = this.baseUrl+'/agents';
   private getResponseUrl = this.baseUrl+'/responses?ticketId='
+  private getTicketUrl = this.baseUrl+'/ticket?ticketId='
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type':'application/json'})
   }
@@ -27,8 +28,11 @@ export class AdminServiceService {
   }
 
   getResponsesToTicket(ticketId: string|null){
-    return this.httpClient.get<Response[]>(this.getResponseUrl+ticketId, this.httpOptions);
+    return this.httpClient.get<Response[]>(this.getResponseUrl + ticketId, this.httpOptions);
   }
 
+  getTicketDetails(ticketId: string|null){
+    return this.httpClient.get<Ticket>(this.getTicketUrl+ticketId, this.httpOptions);
+  }
 
 }

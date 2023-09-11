@@ -4,9 +4,15 @@
     <div *ngFor="let resp of ticketResponses" class="my-3" style="background-color: whitesmoke;">
         <div class="row">
             <div class="col-2">
-                <!-- - {{resp.responderType}} -->
-                <!-- <i class="bi bi-person-circle" [ngClass]="resp.responderType=='agent'?'agent-icon':'client-icon'"></i>
-                {{resp.agentId}}  -->
+                <!-- {{resp.responderType}} -->
+                <!-- <i class="bi bi-person-circle" [ngClass]="resp.responderType=='agent'?'agent-icon':'client-icon'"></i> -->
+                <!-- {{resp.agentId}}   -->
+                <div *ngIf="resp.responseByAgent">
+                    {{resp.agentName}}
+                </div>
+                <div *ngIf="!resp.responseByAgent">
+                    {{resp.customerName}}
+                </div>
             </div>
             <div class="col-9">
                 <p>{{resp.message}}</p>

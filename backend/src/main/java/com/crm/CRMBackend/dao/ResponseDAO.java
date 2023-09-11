@@ -30,7 +30,7 @@ public class ResponseDAO {
 	
 	public List<Response> getAllResponsesForTicket(int ticketId){
 		return jdbcTemplate.query(
-				"select * from responses where ticket_id = ?",
+				"select \n	ticket_id,\n    created_timestamp,\n    ticket_status,\n    message,\n    response_by_agent,\n    agent_name,\n    customer_name,\n    company_name\n from \n(select \n	ticket_id,\n    created_timestamp,\n    ticket_status,\n    message,\n    response_by_agent,\n    name as agent_name,\n    agent_id,\n    customer_id\n from \n	(select * from responses where ticket_id=?) as t1 \nleft join agents\n	on t1.agent_id = agents.id) as t2 left join customers on t2.customer_id = customers.id",
 				new Object[] {ticketId},
 				new RowMapper<Response>() {
 					
@@ -38,14 +38,17 @@ public class ResponseDAO {
 					public Response mapRow(ResultSet rs, int rowNum) {
 						Response resp = new Response();
 						try {
-							resp.setId(rs.getInt("id"));
+							// resp.setId(rs.getInt("id"));
 							resp.setMessage(rs.getString("message"));
 							resp.setTicketId(rs.getInt("ticket_id"));
 							resp.setTicketStatus(rs.getString("ticket_status"));
 							resp.setCreatedTimestamp(rs.getTimestamp("created_timestamp").toLocalDateTime());
 							resp.setResponseByAgent(rs.getBoolean("response_by_agent"));
-							resp.setAgentId(rs.getInt("agent_id"));
-							resp.setCustomerId(rs.getInt("customer_id"));
+							// resp.setAgentId(rs.getInt("agent_id"));
+							// resp.setCustomerId(rs.getInt("customer_id"));
+							resp.setCustomerName(rs.getString("customer_name"));
+							resp.setCompanyName(rs.getString("company_name"));
+							resp.setAgentName(rs.getString("agent_name"));
 						}catch(SQLException sqle) { sqle.printStackTrace(); }
 						
 						return resp;

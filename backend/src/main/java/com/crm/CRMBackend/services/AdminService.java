@@ -40,6 +40,10 @@ public class AdminService {
 	@Autowired private AgentDAO agentDAO;
 	@Autowired private TicketDAO ticketDAO;
 	
+	public Ticket getTicketDetails(int ticketId){
+		return ticketDAO.getTicketDetails(ticketId);
+	}
+
 	//TODO: Define DAO methods for the following 4 methods
 	public int addResponse(Response response) {
 		return responseDAO.createResponse(response);

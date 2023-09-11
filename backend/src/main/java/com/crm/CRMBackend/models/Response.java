@@ -24,5 +24,8 @@ public class Response {
 	private String ticketStatus;
 	private LocalDateTime createdTimestamp;
 	private Boolean responseByAgent;
+	private String customerName;
+	private String companyName;
+	private String agentName;
 	
 }

@@ -42,7 +42,15 @@ public class AdminController {
 	public ResponseEntity<List<Agent>> agents(){
 		return new ResponseEntity<>(service.getAgentAnalytics(), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/ticket")
+	public ResponseEntity<Ticket> getTicket(
+		@RequestParam int ticketId
+	){
+		return new ResponseEntity<>(service.getTicketDetails(ticketId), HttpStatus.OK);
+	}
+
+
 	@GetMapping("/tickets")
 	public ResponseEntity<List<Ticket>> tickets(){
 		return new ResponseEntity<>(service.getAllTickets(), HttpStatus.OK);
