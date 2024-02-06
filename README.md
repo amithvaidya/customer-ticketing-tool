@@ -30,25 +30,31 @@ This is a CRM tool that allows a business's customer raise query/issue tickets w
 	- Create ticket, respond and send feedback rating
 
 
+### View of Admin dashboard to track Agent's performance
+![Admin Dashboard](./Admin_agents_view.PNG)
+
+### View of Admin dashboard to monitor tickets created.
+![Tickets](./Admin_tickets_view.PNG)
 
 
 ## Agent Peformance Metrics
 
 1. Average Response Time:
 
-Average Response Time for a ticket is the average of time duration between a customer's response and the immediate after response of the agent.
-Average Response Time of an agent is the average of ART of all the tickets handled by him.
+<p>Average Response Time for a ticket is the average of time duration between a customer's response and the immediate after response of the agent.</p>
+
+<p>Average Response Time of an agent is the average of ART of all the tickets handled by him.
 Overall Average Response Time of the support team is the average of ART of all the agents.
-This can be calculated on a date basis (Average Response Time for each agent for a particular date).
+This can be calculated on a date basis (Average Response Time for each agent for a particular date).</p>
 
 
 2. Average Resolution Time:
 
-The same concept of ART explained above, only change is the context of time is taken from resolution.
+<p>The same concept of ART explained above, only change is the context of time is taken from resolution.<P>
 
 3. Agent CSAT
 
-Average of the csat_rating for all tickets handled by the agent and where the customer has provided the rating. Note you must exclude the tickets where customer has not given the rating.
+<p>Average of the csat_rating for all tickets handled by the agent and where the customer has provided the rating. Note you must exclude the tickets where customer has not given the rating.</p>
 
 
 ## Tech Stack:
