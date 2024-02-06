@@ -31,10 +31,10 @@ This is a CRM tool that allows a business's customer raise query/issue tickets w
 
 
 ### View of Admin dashboard to track Agent's performance
-![Admin Dashboard](./Admin_agents_view.PNG)
+![Admin Dashboard](./images/Admin_agents_view.PNG)
 
 ### View of Admin dashboard to monitor tickets created.
-![Tickets](./Admin_tickets_view.PNG)
+![Tickets](./images/Admin_tickets_view.PNG)
 
 
 ## Agent Peformance Metrics
@@ -63,3 +63,8 @@ This can be calculated on a date basis (Average Response Time for each agent for
 - Back end: Spring Boot, MySQL
 
 
+## Steps to use
+
+1. Clone the repository to local
+2. In Command Prompt, go to the _backend/target_ folder and run the command _java -jar application-name.jar_
+3. Once the backend is running, 
